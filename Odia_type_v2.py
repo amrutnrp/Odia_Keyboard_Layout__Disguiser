@@ -34,7 +34,7 @@ for j,i in enumerate (Odia_data_3 [9]):
     else:
         master_gen_LUT [j] = i
         
-for i in [4,5,6,7,8, 10,11,12,13]:
+for i in [4,5,6,7,8, 10,11,12,13, 15, 16]:
     
     temp_LUT = []
     for k_item in Odia_data_3[i]:
@@ -51,11 +51,11 @@ for i in [4,5,6,7,8, 10,11,12,13]:
 
 #empasis_exclusion_list = Interpreted_LUT [5]
 
-valid_EN_char = Odia_data_3[0]+Odia_data_3[1]+Odia_data_3[2]
+
 valid_od_char = Interpreted_LUT [1]+Interpreted_LUT [2]+Interpreted_LUT [3]
 valid_od_char_empasized = Interpreted_LUT [3]
 valid_od_char_deEmpasized = Interpreted_LUT [5]+Interpreted_LUT [7]
-del currentPlace, Odia_data2, temp_LUT, master_gen_LUT, master_Odia_LUT, line
+del currentPlace, Odia_data2, temp_LUT, master_gen_LUT, line
 del k_str, k_item, j_item, j, k, i, item, filehandle, 
 Numbers_map          = dict(zip(Odia_data_3[2], Interpreted_LUT [0]))  # dict(zip(keys, values))
 Normal_map           = dict(zip(Odia_data_3[1], Interpreted_LUT [1]))  
@@ -67,10 +67,56 @@ Shift_Emphasis_map   = dict(zip(Interpreted_LUT[3], Interpreted_LUT [4]))
 
 De_Emphasis_map   = dict(zip(Interpreted_LUT [5]+Interpreted_LUT [7], Interpreted_LUT[6]+Interpreted_LUT [8])) 
 
-empasis_exclusion_list = [' ', '-'] + Odia_data_3[2]
 
-#del Interpreted_LUT, Odia_data_3
 
+
+
+control_inp_types = [
+"'\\x01'",     #A
+"'\\x02'",     #B 
+"'\\x03'",     #C 
+"'\\x04'",     #D 
+"'\\x05'",     #E 
+"'\\x06'",     #F 
+"'\\x07'",     #G 
+"'\\x08'",     #H
+"'\\t'"  ,     #I
+"'\\n'"  ,     #J  
+"'\\x0b'",     #K  
+"'\\x0c'",     #L  
+"'\\r'" ,       #M
+"'\\x0e'",     #N 
+"'\\x0f'",     #O 
+"'\\x10'",     #P 
+"'\\x11'",     #Q 
+"'\\x12'",     #R 
+"'\\x13'",     #S  
+"'\\x14'",     #T 
+"'\\x15'",     #U
+"'\\x16'",     #V 
+"'\\x17'",     #W
+"'\\x18'",     #X 
+"'\\x19'",     #Y
+"'\\x1a'"     #Z 
+    ]
+
+control_based_juktakshar = {}
+b= Odia_data_3[14]
+for j,i in enumerate(b):
+    if not i[0].isalpha():
+        i_lists= i.split('*')
+        i_str= ''
+        for k in i_lists:
+            k_num = int (k)
+            if k_num>0:
+                i_str=i_str + master_Odia_LUT [k_num-1]
+            else:
+                raise KeyboardInterrupt
+        control_based_juktakshar [control_inp_types [j]] = i_str
+         
+empasis_exclusion_list = [' ', '-'] + Odia_data_3[2] + list (control_based_juktakshar.keys())     
+valid_EN_char = Odia_data_3[0]+Odia_data_3[1]+Odia_data_3[2] +   list (control_based_juktakshar.keys())     
+#del Interpreted_LUT, Odia_data_3    , master_Odia_LUT    
 from tkinter import *
 import tkinter
 root = tkinter.Tk()
@@ -165,7 +211,7 @@ def key(event):
     text_box.config(state="disabled")
     
     
-characterMap= {**Normal_map, **Numbers_map, **Shift_map }
+characterMap= {**Normal_map, **Numbers_map, **Shift_map , **control_based_juktakshar}
 Superset_empasis_map = {**Emphasis_map,**Shift_Emphasis_map  }
 
 #valid_od_char = list(characterMap.keys() )
