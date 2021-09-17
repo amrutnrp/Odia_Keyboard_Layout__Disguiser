@@ -62,7 +62,7 @@ Normal_map           = dict(zip(Odia_data_3[1], Interpreted_LUT [1]))
 Shift_map            = dict(zip(Odia_data_3[0], Interpreted_LUT [3])) 
 
 Emphasis_map         = dict(zip(Interpreted_LUT [1], Interpreted_LUT [2])) 
-Matra_Emphasis_map   = dict(zip(Interpreted_LUT [2], Interpreted_LUT [4])) 
+Double_Emphasis_map   = dict(zip(Interpreted_LUT [1], Interpreted_LUT [4])) 
 Shift_Emphasis_map   = dict(zip(Interpreted_LUT[3], Interpreted_LUT [4])) 
 
 De_Emphasis_map   = dict(zip(Interpreted_LUT [5]+Interpreted_LUT [7], Interpreted_LUT[6]+Interpreted_LUT [8])) 
@@ -93,14 +93,13 @@ def key(event):
     if len(kp)==2 :
         return    
     
-    global chr_pressed
+    global chr_pressed, valid_emphasis ,last_input, valid_double_emphasis, last_od_type, valid_de_emphasis
     chr_pressed = kp
-    global valid_emphasis ,last_input, valid_double_emphasis, last_od_type, valid_de_emphasis
     
     text_box.config(state="normal")
     #print ("pressed", kp,  len(kp)) #repr(event.char))
 
-    if kp == "' '" and  valid_emphasis== True: #space
+    if kp == "'\\t'"  and  valid_emphasis== True: #space
         last_len= len(last_od_type)
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
         
@@ -114,11 +113,11 @@ def key(event):
         valid_double_emphasis= True
         valid_de_emphasis = True
         
-    elif kp == "' '" and valid_double_emphasis== True:  # double space
+    elif kp == "'\\t'"  and valid_double_emphasis== True:  # double space
         last_len= len(last_od_type)
-        text_box.delete('end-'+str(last_len)+'c', 'end-1c')
+        text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
         
-        od_uni = Superset_empasis_map[last_od_type]            
+        od_uni = Double_Emphasis_map[last_od_type]            
         od_chr = repr(od_uni)
         text_box.insert(tkinter.END, od_chr [1:-1])
                 
@@ -172,13 +171,16 @@ def key(event):
             elif kp == "'\\r'":  #Enter
                 text_box.insert(tkinter.END, '\n')        
                 valid_de_emphasis = False
+            elif kp == "' '":  #space
+                text_box.insert(tkinter.END, '\n')        
+                valid_de_emphasis = False                
             else:
                 valid_de_emphasis = False
     text_box.config(state="disabled")
     
     
 characterMap= {**Normal_map, **Numbers_map, **Shift_map }
-Superset_empasis_map = {**Emphasis_map,**Shift_Emphasis_map , **Matra_Emphasis_map }
+Superset_empasis_map = {**Emphasis_map,**Shift_Emphasis_map  }
 
 #valid_od_char = list(characterMap.keys() )
 
