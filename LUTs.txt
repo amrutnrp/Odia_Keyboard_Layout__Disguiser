@@ -64,4 +64,11 @@ same for Sa
 
 
 
+change row 2,3
+revert back vowels
+take care of special stuff
+delete P column
+
+
+
 

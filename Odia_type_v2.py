@@ -50,7 +50,7 @@ for i in [4,5,6,7,8, 10,11,12,13]:
     Interpreted_LUT  .append(temp_LUT) 
 
 #empasis_exclusion_list = Interpreted_LUT [5]
-empasis_exclusion_list = [' ', '-']
+
 valid_EN_char = Odia_data_3[0]+Odia_data_3[1]+Odia_data_3[2]
 valid_od_char = Interpreted_LUT [1]+Interpreted_LUT [2]+Interpreted_LUT [3]
 valid_od_char_empasized = Interpreted_LUT [3]
@@ -67,7 +67,7 @@ Shift_Emphasis_map   = dict(zip(Interpreted_LUT[3], Interpreted_LUT [4]))
 
 De_Emphasis_map   = dict(zip(Interpreted_LUT [5]+Interpreted_LUT [7], Interpreted_LUT[6]+Interpreted_LUT [8])) 
 
-
+empasis_exclusion_list = [' ', '-'] + Odia_data_3[2]
 
 #del Interpreted_LUT, Odia_data_3
 
@@ -99,12 +99,9 @@ def key(event):
     text_box.config(state="normal")
     #print ("pressed", kp,  len(kp)) #repr(event.char))
 
-    if kp == "'\\t'"  and  valid_emphasis== True: #space
+    if (kp == "'\\t'" or kp == "'p'" ) and  valid_emphasis== True: #space
         last_len= len(last_od_type)
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
-        
-        print (last_od_type, len(last_od_type))
-        
         od_uni = Superset_empasis_map[last_od_type]            
         od_chr = repr(od_uni)
         text_box.insert(tkinter.END, od_chr [1:-1])
@@ -113,7 +110,7 @@ def key(event):
         valid_double_emphasis= True
         valid_de_emphasis = True
         
-    elif kp == "'\\t'"  and valid_double_emphasis== True:  # double space
+    elif (kp == "'\\t'" or kp == "'p'" ) and valid_double_emphasis== True:  # double space
         last_len= len(last_od_type)
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
         
@@ -123,10 +120,7 @@ def key(event):
                 
         valid_emphasis = False  
         valid_double_emphasis= False
-        valid_de_emphasis= True
-                
-            
-            
+        valid_de_emphasis= True 
     elif kp in valid_EN_char :
         od_uni = characterMap[kp]
         od_chr = repr(od_uni)
