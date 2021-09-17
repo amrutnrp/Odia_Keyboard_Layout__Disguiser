@@ -133,8 +133,6 @@ def key(event):
         last_od_type= od_chr[1:-1]
         text_box.insert(tkinter.END, last_od_type )
         last_input= kp
-        
-        #print (last_od_type, len(last_od_type))
         valid_de_emphasis = False
         if kp in empasis_exclusion_list :
             valid_emphasis = False
@@ -148,26 +146,20 @@ def key(event):
             if kp == "'\\x08'" : # Backspace
                 last_od_type = text_box.get('end-2c', 'end-1c')
                 if last_od_type in valid_od_char_deEmpasized:
-                    print ('hmm - ', last_od_type)
                     text_box.delete('end-2c', 'end-1c')
                     od_uni = De_Emphasis_map[last_od_type]
                     od_chr = repr(od_uni)
-                    text_box.insert(tkinter.END, od_chr[1:-1] )
-                    
-                    
-                    
+                    last_od_type = od_chr[1:-1]
+                    text_box.insert(tkinter.END,last_od_type  )
                 else:
-                        
                     text_box.delete('end-2c', 'end-1c')
                     last_od_type = text_box.get('end-2c', 'end-1c')
-                    if last_od_type in valid_od_char:
-                        valid_emphasis = True
-                        valid_double_emphasis= False
-                    elif last_od_type in valid_od_char_empasized:
-                        valid_emphasis = False
-                        valid_double_emphasis= True
-                    #last_type= '\''+last_type+ '\''
-
+                if last_od_type in valid_od_char:
+                    valid_emphasis = True
+                    valid_double_emphasis= False
+                elif last_od_type in valid_od_char_empasized:
+                    valid_emphasis = False
+                    valid_double_emphasis= True
             elif kp == "'\\r'":  #Enter
                 text_box.insert(tkinter.END, '\n')        
                 valid_de_emphasis = False
