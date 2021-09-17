@@ -68,7 +68,7 @@ Shift_Emphasis_map   = dict(zip(Interpreted_LUT[3], Interpreted_LUT [4]))
 De_Emphasis_map   = dict(zip(Interpreted_LUT [5]+Interpreted_LUT [7], Interpreted_LUT[6]+Interpreted_LUT [8])) 
 
 
-
+juktakhar_emphasis =  dict(zip(Interpreted_LUT[9], Interpreted_LUT [10])) 
 
 
 control_inp_types = [
@@ -114,7 +114,7 @@ for j,i in enumerate(b):
                 raise KeyboardInterrupt
         control_based_juktakshar [control_inp_types [j]] = i_str
          
-empasis_exclusion_list = [' ', '-'] + Odia_data_3[2] + list (control_based_juktakshar.keys())     
+empasis_exclusion_list = [' ', '-'] + Odia_data_3[2]# + list (control_based_juktakshar.keys())     
 valid_EN_char = Odia_data_3[0]+Odia_data_3[1]+Odia_data_3[2] +   list (control_based_juktakshar.keys())     
 #del Interpreted_LUT, Odia_data_3    , master_Odia_LUT    
 from tkinter import *
@@ -212,7 +212,7 @@ def key(event):
     
     
 characterMap= {**Normal_map, **Numbers_map, **Shift_map , **control_based_juktakshar}
-Superset_empasis_map = {**Emphasis_map,**Shift_Emphasis_map  }
+Superset_empasis_map = {**Emphasis_map,**Shift_Emphasis_map , **juktakhar_emphasis }
 
 #valid_od_char = list(characterMap.keys() )
 
