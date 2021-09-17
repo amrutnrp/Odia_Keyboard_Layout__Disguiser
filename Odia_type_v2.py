@@ -34,7 +34,7 @@ for j,i in enumerate (Odia_data_3 [9]):
     else:
         master_gen_LUT [j] = i
         
-for i in [4,5,6,7,8]:
+for i in [4,5,6,7,8, 10,11,12,13]:
     
     temp_LUT = []
     for k_item in Odia_data_3[i]:
@@ -54,7 +54,7 @@ empasis_exclusion_list = [' ', '-']
 valid_EN_char = Odia_data_3[0]+Odia_data_3[1]+Odia_data_3[2]
 valid_od_char = Interpreted_LUT [1]+Interpreted_LUT [2]+Interpreted_LUT [3]
 valid_od_char_empasized = Interpreted_LUT [3]
-valid_od_char_deEmpasized = Interpreted_LUT [4]+Interpreted_LUT [2]
+valid_od_char_deEmpasized = Interpreted_LUT [5]+Interpreted_LUT [7]
 del currentPlace, Odia_data2, temp_LUT, master_gen_LUT, master_Odia_LUT, line
 del k_str, k_item, j_item, j, k, i, item, filehandle, 
 Numbers_map          = dict(zip(Odia_data_3[2], Interpreted_LUT [0]))  # dict(zip(keys, values))
@@ -65,7 +65,7 @@ Emphasis_map         = dict(zip(Interpreted_LUT [1], Interpreted_LUT [2]))
 Matra_Emphasis_map   = dict(zip(Interpreted_LUT [2], Interpreted_LUT [4])) 
 Shift_Emphasis_map   = dict(zip(Interpreted_LUT[3], Interpreted_LUT [4])) 
 
-De_Emphasis_map   = dict(zip(Interpreted_LUT [4]+Interpreted_LUT [2], Interpreted_LUT[3]+Interpreted_LUT [1])) 
+De_Emphasis_map   = dict(zip(Interpreted_LUT [5]+Interpreted_LUT [7], Interpreted_LUT[6]+Interpreted_LUT [8])) 
 
 
 
@@ -150,22 +150,24 @@ def key(event):
                 last_od_type = text_box.get('end-2c', 'end-1c')
                 if last_od_type in valid_od_char_deEmpasized:
                     print ('hmm - ', last_od_type)
+                    text_box.delete('end-2c', 'end-1c')
                     od_uni = De_Emphasis_map[last_od_type]
                     od_chr = repr(od_uni)
                     text_box.insert(tkinter.END, od_chr[1:-1] )
                     
                     
                     
-                    
-                text_box.delete('end-2c', 'end-1c')
-                last_od_type = text_box.get('end-2c', 'end-1c')
-                if last_od_type in valid_od_char:
-                    valid_emphasis = True
-                    valid_double_emphasis= False
-                elif last_od_type in valid_od_char_empasized:
-                    valid_emphasis = False
-                    valid_double_emphasis= True
-                #last_type= '\''+last_type+ '\''
+                else:
+                        
+                    text_box.delete('end-2c', 'end-1c')
+                    last_od_type = text_box.get('end-2c', 'end-1c')
+                    if last_od_type in valid_od_char:
+                        valid_emphasis = True
+                        valid_double_emphasis= False
+                    elif last_od_type in valid_od_char_empasized:
+                        valid_emphasis = False
+                        valid_double_emphasis= True
+                    #last_type= '\''+last_type+ '\''
 
             elif kp == "'\\r'":  #Enter
                 text_box.insert(tkinter.END, '\n')        
