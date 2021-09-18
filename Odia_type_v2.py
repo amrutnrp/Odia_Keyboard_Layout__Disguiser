@@ -17,7 +17,7 @@ valid_double_emphasis= False
 last_input = ''
 last_od_type = '%'
 valid_de_emphasis = False
-
+main_text_stack = []
 
 
 #=====================================================================================
@@ -37,7 +37,8 @@ def key(event):
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
         od_uni = Superset_empasis_map[last_od_type]            
         od_chr = repr(od_uni)
-        text_box.insert(tkinter.END, od_chr [1:-1])       
+        text_box.insert(tkinter.END, od_chr [1:-1])   
+        main_text_stack.append(od_chr [1:-1])
         valid_emphasis = False  
         if last_od_type in single_emphasis_exclusion_list:
             valid_double_emphasis= False
@@ -45,11 +46,12 @@ def key(event):
             valid_double_emphasis= True
         valid_de_emphasis = True       
     elif (kp == "'\\t'" or kp == "']'" ) and valid_double_emphasis== True:  # double space
-        last_len= len(last_od_type)
+        last_len= len(main_text_stack.pop())
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
         od_uni = Double_Emphasis_map[last_od_type]            
         od_chr = repr(od_uni)
         text_box.insert(tkinter.END, od_chr [1:-1])
+        main_text_stack.append(od_chr [1:-1])
         valid_emphasis = False  
         valid_double_emphasis= False
         valid_de_emphasis= True 
@@ -58,6 +60,7 @@ def key(event):
         od_chr = repr(od_uni)
         last_od_type= od_chr[1:-1]
         text_box.insert(tkinter.END, last_od_type )
+        main_text_stack.append( last_od_type )
         last_input= kp
         valid_de_emphasis = False
         valid_double_emphasis= False
@@ -73,7 +76,7 @@ def key(event):
             valid_de_emphasis = False
         else:
             if kp == "'\\x08'" : # Backspace
-                last_od_type = text_box.get('end-2c', 'end-1c')
+                last_od_type = main_text_stack.pop() #text_box.get('end-2c', 'end-1c')
                 if valid_de_emphasis and last_od_type in valid_od_char_deEmpasized:
                     text_box.delete('end-2c', 'end-1c')
                     od_uni = De_Emphasis_map[last_od_type]
