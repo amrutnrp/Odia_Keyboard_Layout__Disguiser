@@ -37,23 +37,19 @@ def key(event):
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
         od_uni = Superset_empasis_map[last_od_type]            
         od_chr = repr(od_uni)
-        text_box.insert(tkinter.END, od_chr [1:-1])
-        
+        text_box.insert(tkinter.END, od_chr [1:-1])       
         valid_emphasis = False  
         if last_od_type in single_emphasis_exclusion_list:
             valid_double_emphasis= False
         else:
             valid_double_emphasis= True
-        valid_de_emphasis = True
-        
+        valid_de_emphasis = True       
     elif (kp == "'\\t'" or kp == "']'" ) and valid_double_emphasis== True:  # double space
         last_len= len(last_od_type)
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
-        
         od_uni = Double_Emphasis_map[last_od_type]            
         od_chr = repr(od_uni)
         text_box.insert(tkinter.END, od_chr [1:-1])
-                
         valid_emphasis = False  
         valid_double_emphasis= False
         valid_de_emphasis= True 
@@ -101,8 +97,7 @@ def key(event):
                 valid_de_emphasis = False                
             else:
                 valid_de_emphasis = False
-    text_box.config(state="disabled")
-    
+    text_box.config(state="disabled")   
     
 characterMap= {**Normal_map, **Numbers_map, **Shift_map , **control_based_juktakshar}
 Superset_empasis_map = {**Emphasis_map,**Shift_Emphasis_map , **juktakhar_emphasis }
