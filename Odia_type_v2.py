@@ -7,7 +7,8 @@ Created on Fri Sep 17 02:37:17 2021
 import pyperclip
 import tkinter
 root = tkinter.Tk()
-from Import_odia_process import  *
+from Import_odia_process import  control_based_juktakshar,De_Emphasis_map,Double_Emphasis_map, empasis_exclusion_list, Emphasis_map,juktakhar_emphasis ,Normal_map,Numbers_map  , Shift_Emphasis_map , Shift_map , single_emphasis_exclusion_list, valid_EN_char, valid_od_char, valid_od_char_deEmpasized, valid_od_char_empasized,characterMap, Superset_empasis_map
+
 print('Programm starting...')
 chr_pressed =None
 flag=0
@@ -18,9 +19,9 @@ valid_double_emphasis= False
 last_input = ''
 last_od_type = '%'
 valid_de_emphasis = False
-main_text_stack = []
-
-
+main_text_stack = ['']
+last_char_flag = [False]
+de_emph_vld_flag_arr=  [False]
 #=====================================================================================
 def key(event):
     kp = repr(event.char)
@@ -34,7 +35,7 @@ def key(event):
     #print ("pressed", kp,  len(kp)) #repr(event.char))
 
     if (kp == "'\\t'" or kp == "']'" ) and  valid_emphasis== True: #space
-        last_len= len(last_od_type)
+        last_len= len(main_text_stack.pop())
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
         od_uni = Superset_empasis_map[last_od_type]            
         od_chr = repr(od_uni)
@@ -45,7 +46,8 @@ def key(event):
             valid_double_emphasis= False
         else:
             valid_double_emphasis= True
-        valid_de_emphasis = True       
+        valid_de_emphasis = True     
+        de_emph_vld_flag_arr.pop()
     elif (kp == "'\\t'" or kp == "']'" ) and valid_double_emphasis== True:  # double space
         last_len= len(main_text_stack.pop())
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
@@ -55,7 +57,8 @@ def key(event):
         main_text_stack.append(od_chr [1:-1])
         valid_emphasis = False  
         valid_double_emphasis= False
-        valid_de_emphasis= True 
+        valid_de_emphasis= True
+        de_emph_vld_flag_arr.pop()
     elif kp in valid_EN_char :
         od_uni = characterMap[kp]
         od_chr = repr(od_uni)
@@ -63,6 +66,7 @@ def key(event):
         text_box.insert(tkinter.END, last_od_type )
         main_text_stack.append( last_od_type )
         last_input= kp
+        last_char_flag.append(True)
         valid_de_emphasis = False
         valid_double_emphasis= False
         if kp in empasis_exclusion_list :
@@ -108,10 +112,7 @@ def key(event):
                 valid_de_emphasis = False
     text_box.config(state="disabled")   
     
-characterMap= {**Normal_map, **Numbers_map, **Shift_map , **control_based_juktakshar}
-Superset_empasis_map = {**Emphasis_map,**Shift_Emphasis_map , **juktakhar_emphasis }
 
-#valid_od_char = list(characterMap.keys() )
 
 def callback(event):
     text_box.focus_set()

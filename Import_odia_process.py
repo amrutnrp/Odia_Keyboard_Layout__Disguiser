@@ -52,8 +52,7 @@ for i in [4,5,6,7,8, 11,12]:
 #empasis_exclusion_list = Interpreted_LUT [5]
 
 empasis_exclusion_list = [' ']
-valid_od_char = Interpreted_LUT [1]+Interpreted_LUT [2]+Interpreted_LUT [3]
-valid_od_char_empasized = Interpreted_LUT [3]
+
 
 del currentPlace, Odia_data2, temp_LUT, master_gen_LUT, line
 del k_str, k_item, j_item, j, k, i, item, filehandle, 
@@ -130,5 +129,17 @@ for j,i in enumerate(b):
          
 empasis_exclusion_list = empasis_exclusion_list+ Odia_data_3[2]# + list (control_based_juktakshar.keys())     
 valid_EN_char = Odia_data_3[0]+Odia_data_3[1]+Odia_data_3[2] +   list (control_based_juktakshar.keys())     
+
+
+characterMap= {**Normal_map, **Numbers_map, **Shift_map , **control_based_juktakshar}
+Superset_empasis_map = {**Emphasis_map,**Shift_Emphasis_map , **juktakhar_emphasis }
+
+
+valid_od_char = Interpreted_LUT [1]+Interpreted_LUT [3] + list(juktakhar_emphasis.keys())#+Interpreted_LUT [2]
+valid_od_char_empasized = Interpreted_LUT [2]
+
+#valid_od_char = list(characterMap.keys() )
+
+
 #del Interpreted_LUT, Odia_data_3    , master_Odia_LUT    
 #from tkinter import *
