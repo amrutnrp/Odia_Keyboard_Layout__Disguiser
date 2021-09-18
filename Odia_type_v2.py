@@ -92,6 +92,8 @@ def key(event):
                 elif last_od_type in valid_od_char_empasized:
                     valid_emphasis = False
                     valid_double_emphasis= True
+                if len(main_text_stack) == 0:
+                    main_text_stack.append('')
             elif kp == "'\\r'":  #Enter
                 text_box.insert(tkinter.END, '\n')        
                 valid_de_emphasis = False
