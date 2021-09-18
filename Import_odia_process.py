@@ -34,7 +34,7 @@ for j,i in enumerate (Odia_data_3 [9]):
     else:
         master_gen_LUT [j] = i
         
-for i in [4,5,6,7,8, 10,11,12,13, 15, 16]:
+for i in [4,5,6,7,8, 11,12]:
     
     temp_LUT = []
     for k_item in Odia_data_3[i]:
@@ -82,7 +82,7 @@ Double_Emphasis_map   = dict(zip(Interpreted_LUT [1], Interpreted_LUT [4]))
 De_Emphasis_map   = dict(zip(emp_arr [0]+emp_arr [2], emp_arr[1]+emp_arr [3])) 
 valid_od_char_deEmpasized = emp_arr [0]+emp_arr [2]
 
-juktakhar_emphasis =  dict(zip(Interpreted_LUT[9], Interpreted_LUT [10])) 
+juktakhar_emphasis =  dict(zip(Interpreted_LUT[5], Interpreted_LUT [6])) 
 single_emphasis_exclusion_list = Interpreted_LUT[3]
 
 control_inp_types = [
@@ -115,7 +115,7 @@ control_inp_types = [
     ]
 
 control_based_juktakshar = {}
-b= Odia_data_3[14]
+b= Odia_data_3[10]
 for j,i in enumerate(b):
     if not i[0].isalpha():
         i_lists= i.split('*')
