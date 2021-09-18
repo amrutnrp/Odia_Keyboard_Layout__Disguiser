@@ -4,6 +4,7 @@ Created on Fri Sep 17 02:37:17 2021
 
 @author: amrutnp
 """
+import pyperclip
 import tkinter
 root = tkinter.Tk()
 from Import_odia_process import  *
@@ -72,8 +73,11 @@ def key(event):
         valid_emphasis = False
         valid_double_emphasis= False        
         if len (kp) == 3:
-            text_box.insert(tkinter.END, kp[1])
-            valid_de_emphasis = False
+            if kp == "'['":
+                pyperclip.copy(text_box.get('1.0', tkinter.END))
+            else:
+                text_box.insert(tkinter.END, kp[1])
+                valid_de_emphasis = False
         else:
             if kp == "'\\x08'" : # Backspace
                 last_od_type = main_text_stack.pop() #text_box.get('end-2c', 'end-1c')
@@ -112,7 +116,7 @@ Superset_empasis_map = {**Emphasis_map,**Shift_Emphasis_map , **juktakhar_emphas
 def callback(event):
     text_box.focus_set()
     #print ("clicked at", event.x, event.y)
-text_box = tkinter.Text(root, width =30, height = 10 ,  font=("Helvetica", 32))
+text_box = tkinter.Text(root, width =40, height = 20 ,  font=("Helvetica", 16))
 #text_box.insert("1.0", sample_text)
 text_box.bind("<Key>", key)
 text_box.bind("<Button-1>", callback)
