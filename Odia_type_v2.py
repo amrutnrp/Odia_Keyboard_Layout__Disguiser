@@ -121,8 +121,8 @@ def key(event):
         if len (kp) == 3:
             if kp == "'['":
                 last_char_flag.pop()
-                pyperclip.copy(text_box.get('1.0', tkinter.END))
-                #pyperclip.copy(''.join(main_text_stack) )
+                #pyperclip.copy(text_box.get('1.0', tkinter.END))
+                pyperclip.copy(''.join(main_text_stack) )
                 text_box.config(state="disabled")   
                 return
             elif kp == "']'" :
