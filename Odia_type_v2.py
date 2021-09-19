@@ -7,7 +7,7 @@ Created on Fri Sep 17 02:37:17 2021
 import pyperclip
 import tkinter
 root = tkinter.Tk()
-from Import_odia_process import  control_based_juktakshar,De_Emphasis_map,Double_Emphasis_map, empasis_exclusion_list, Emphasis_map,juktakhar_emphasis ,Normal_map,Numbers_map  , Shift_Emphasis_map , Shift_map , single_emphasis_exclusion_list, valid_EN_char, valid_od_char, valid_od_char_deEmpasized, valid_od_char_empasized,characterMap, Superset_empasis_map
+from Import_odia_process import De_Emphasis_map,Double_Emphasis_map, empasis_exclusion_list  , single_emphasis_exclusion_list, valid_EN_char, valid_od_char, valid_od_char_deEmpasized, valid_od_char_empasized,characterMap, Superset_empasis_map
 
 print('Programm starting...')
 chr_pressed =None
