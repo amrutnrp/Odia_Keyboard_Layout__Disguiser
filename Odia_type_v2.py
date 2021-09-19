@@ -28,14 +28,18 @@ def key(event):
     if len(kp)==2 or len (kp) == 0 :
         return    
     
-    global chr_pressed, valid_emphasis ,last_input, valid_double_emphasis, last_od_type, valid_de_emphasis
+    global chr_pressed, valid_emphasis ,last_input
+    global last_char_flag, main_text_stack
+    global valid_double_emphasis, last_od_type
+    global valid_de_emphasis, de_emph_vld_flag_arr
     chr_pressed = kp
     
     text_box.config(state="normal")
     #print ("pressed", kp,  len(kp)) #repr(event.char))
-
+    print (len(de_emph_vld_flag_arr),len(last_char_flag),len(main_text_stack), main_text_stack ) 
     if (kp == "'\\t'" or kp == "']'" ) and  valid_emphasis== True: #space
-        last_len= len(main_text_stack.pop())
+        last_od_type = main_text_stack.pop()    
+        last_len= len(last_od_type)
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
         od_uni = Superset_empasis_map[last_od_type]            
         od_chr = repr(od_uni)
@@ -73,43 +77,72 @@ def key(event):
             valid_emphasis = False
         else:
             valid_emphasis = True
-    else:
-        valid_emphasis = False
-        valid_double_emphasis= False        
-        if len (kp) == 3:
-            if kp == "'['":
-                pyperclip.copy(text_box.get('1.0', tkinter.END))
-            else:
-                text_box.insert(tkinter.END, kp[1])
-                valid_de_emphasis = False
-        else:
-            if kp == "'\\x08'" : # Backspace
-                last_od_type = main_text_stack.pop() #text_box.get('end-2c', 'end-1c')
-                if valid_de_emphasis and last_od_type in valid_od_char_deEmpasized:
-                    text_box.delete('end-2c', 'end-1c')
-                    od_uni = De_Emphasis_map[last_od_type]
-                    od_chr = repr(od_uni)
-                    last_od_type = od_chr[1:-1]
-                    text_box.insert(tkinter.END,last_od_type  )
-                else:
-                    text_box.delete('end-2c', 'end-1c')
-                    last_od_type = text_box.get('end-2c', 'end-1c')
+    elif kp == "'\\x08'" : # Backspace
+        valid_de_emphasis = de_emph_vld_flag_arr.pop()
+        back_odia_chr_check = last_char_flag.pop()
+        last_od_type = main_text_stack.pop() #text_box.get('end-2c', 'end-1c')
+        # print (de_emph_vld_flag_arr , last_char_flag, main_text_stack)
+        
+        last_len= len(last_od_type)
+        text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
+        
+        if back_odia_chr_check and valid_de_emphasis:
+            if last_od_type in valid_od_char_deEmpasized:
+                od_uni = De_Emphasis_map[last_od_type]
+                od_chr = repr(od_uni)
+                last_od_type = od_chr[1:-1]
+                text_box.insert(tkinter.END,last_od_type  )
+                main_text_stack.append(last_od_type)
+                last_char_flag.append(True)
+            
+                last_od_type = main_text_stack[-1] 
                 if last_od_type in valid_od_char:
                     valid_emphasis = True
                     valid_double_emphasis= False
                 elif last_od_type in valid_od_char_empasized:
                     valid_emphasis = False
                     valid_double_emphasis= True
-                if len(main_text_stack) == 0:
-                    main_text_stack.append('')
-            elif kp == "'\\r'":  #Enter
-                text_box.insert(tkinter.END, '\n')        
-                valid_de_emphasis = False
-            elif kp == "' '":  #space
-                text_box.insert(tkinter.END, '\n')        
-                valid_de_emphasis = False                
+                else:
+                    valid_emphasis, valid_double_emphasis = False, False
+                de_emph_vld_flag_arr.append(valid_de_emphasis)
+        if len(main_text_stack) == 1:
+            main_text_stack.append('')
+        if len(de_emph_vld_flag_arr) == 1:
+            de_emph_vld_flag_arr.append(False)
+        if len(last_char_flag) == 1:
+            last_char_flag.append(False)
+        text_box.config(state="disabled")   
+        return            
+    else:
+        valid_emphasis = False
+        valid_double_emphasis= False 
+        valid_de_emphasis = False
+        last_char_flag.append(False)
+        if len (kp) == 3:
+            if kp == "'['":
+                last_char_flag.pop()
+                pyperclip.copy(text_box.get('1.0', tkinter.END))
+                #pyperclip.copy(''.join(main_text_stack) )
+                text_box.config(state="disabled")   
+                return
+            elif kp == "']'" :
+                text_box.config(state="disabled")  
+                return
             else:
-                valid_de_emphasis = False
+                text_box.insert(tkinter.END, kp[1])
+                main_text_stack.append(kp[1])
+        else:
+            if kp == "'\\r'":  #Enter
+                text_box.insert(tkinter.END, '\n')     
+                main_text_stack.append('\n')
+            elif kp == "' '":  #space
+                text_box.insert(tkinter.END, ' ')          
+                main_text_stack.append(' ')
+            else: 
+                last_char_flag.pop()
+                text_box.config(state="disabled") 
+                return
+    de_emph_vld_flag_arr.append(valid_de_emphasis)
     text_box.config(state="disabled")   
     
 
