@@ -36,7 +36,7 @@ def key(event):
     
     text_box.config(state="normal")
     #print ("pressed", kp,  len(kp)) #repr(event.char))
-    print (len(de_emph_vld_flag_arr),len(last_char_flag),len(main_text_stack), main_text_stack ) 
+    #print (len(de_emph_vld_flag_arr),len(last_char_flag),len(main_text_stack), main_text_stack ) 
     if (kp == "'\\t'" or kp == "']'" ) and  valid_emphasis== True: #space
         last_od_type = main_text_stack.pop()    
         last_len= len(last_od_type)
