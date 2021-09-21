@@ -73,16 +73,16 @@ Numbers_map          = dict(zip(Odia_data_3[2], Interpreted_LUT [0]))  # dict(zi
 Normal_map           = dict(zip(Odia_data_3[1], Interpreted_LUT [1]))  
 Shift_map            = dict(zip(Odia_data_3[0], Interpreted_LUT [3])) 
 
-Emphasis_map         = dict(zip(Interpreted_LUT [1], Interpreted_LUT [2])) 
-Shift_Emphasis_map   = dict(zip(Interpreted_LUT[3], Interpreted_LUT [4]))   #Shift_Emphasis_map = single time emphasis only
+Phalasis_map         = dict(zip(Interpreted_LUT [1], Interpreted_LUT [2])) 
+Shift_Phalasis_map   = dict(zip(Interpreted_LUT[3], Interpreted_LUT [4]))   #Shift_Phalasis_map = single time Phalasis only
 
-Double_Emphasis_map   = dict(zip(Interpreted_LUT [1], Interpreted_LUT [4])) 
+Double_Phalasis_map   = dict(zip(Interpreted_LUT [1], Interpreted_LUT [4])) 
 
-De_Emphasis_map   = dict(zip(emp_arr [0]+emp_arr [2], emp_arr[1]+emp_arr [3])) 
+De_Phalasis_map   = dict(zip(emp_arr [0]+emp_arr [2], emp_arr[1]+emp_arr [3])) 
 valid_od_char_deEmpasized = emp_arr [0]+emp_arr [2]
 
-juktakhar_emphasis =  dict(zip(Interpreted_LUT[5], Interpreted_LUT [6])) 
-single_emphasis_exclusion_list = Interpreted_LUT[3]
+juktakhar_Phalasis =  dict(zip(Interpreted_LUT[5], Interpreted_LUT [6])) 
+single_Phalasis_exclusion_list = Interpreted_LUT[3]
 
 control_inp_types = [
 "'\\x01'",     #A
@@ -132,10 +132,10 @@ valid_EN_char = Odia_data_3[0]+Odia_data_3[1]+Odia_data_3[2] +   list (control_b
 
 
 characterMap= {**Normal_map, **Numbers_map, **Shift_map , **control_based_juktakshar}
-Superset_empasis_map = {**Emphasis_map,**Shift_Emphasis_map , **juktakhar_emphasis }
+Superset_empasis_map = {**Phalasis_map,**Shift_Phalasis_map , **juktakhar_Phalasis }
 
 
-valid_od_char = Interpreted_LUT [1]+Interpreted_LUT [3] + list(juktakhar_emphasis.keys())#+Interpreted_LUT [2]
+valid_od_char = Interpreted_LUT [1]+Interpreted_LUT [3] + list(juktakhar_Phalasis.keys())#+Interpreted_LUT [2]
 valid_od_char_empasized = Interpreted_LUT [2]
 
 #valid_od_char = list(characterMap.keys() )

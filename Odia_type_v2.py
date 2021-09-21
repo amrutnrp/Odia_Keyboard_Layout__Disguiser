@@ -7,18 +7,18 @@ Created on Fri Sep 17 02:37:17 2021
 import pyperclip
 import tkinter
 root = tkinter.Tk()
-from Import_odia_process import De_Emphasis_map,Double_Emphasis_map, empasis_exclusion_list  , single_emphasis_exclusion_list, valid_EN_char, valid_od_char, valid_od_char_deEmpasized, valid_od_char_empasized,characterMap, Superset_empasis_map
+from Import_odia_process import De_Phalasis_map,Double_Phalasis_map, empasis_exclusion_list  , single_Phalasis_exclusion_list, valid_EN_char, valid_od_char, valid_od_char_deEmpasized, valid_od_char_empasized,characterMap, Superset_empasis_map
 
 print('Programm starting...')
 chr_pressed =None
 flag=0
 #import re
 #main_string = ""
-valid_emphasis = False
-valid_double_emphasis= False
+valid_Phalasis = False
+valid_double_Phalasis= False
 last_input = ''
 last_od_type = '%'
-valid_de_emphasis = False
+valid_de_Phalasis = False
 main_text_stack = ['']
 last_char_flag = [False]
 de_emph_vld_flag_arr=  [False]
@@ -28,16 +28,16 @@ def key(event):
     if len(kp)==2 or len (kp) == 0 :
         return    
     
-    global chr_pressed, valid_emphasis ,last_input
+    global chr_pressed, valid_Phalasis ,last_input
     global last_char_flag, main_text_stack
-    global valid_double_emphasis, last_od_type
-    global valid_de_emphasis, de_emph_vld_flag_arr
+    global valid_double_Phalasis, last_od_type
+    global valid_de_Phalasis, de_emph_vld_flag_arr
     chr_pressed = kp
     
     text_box.config(state="normal")
     #print ("pressed", kp,  len(kp)) #repr(event.char))
     #print (len(de_emph_vld_flag_arr),len(last_char_flag),len(main_text_stack), main_text_stack ) 
-    if (kp == "' '" ) and  valid_emphasis== True: #space
+    if (kp == "' '" ) and  valid_Phalasis== True: #space
         last_od_type = main_text_stack.pop()    
         last_len= len(last_od_type)
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
@@ -45,23 +45,23 @@ def key(event):
         od_chr = repr(od_uni)
         text_box.insert(tkinter.END, od_chr [1:-1])   
         main_text_stack.append(od_chr [1:-1])
-        valid_emphasis = False  
-        if last_od_type in single_emphasis_exclusion_list:
-            valid_double_emphasis= False
+        valid_Phalasis = False  
+        if last_od_type in single_Phalasis_exclusion_list:
+            valid_double_Phalasis= False
         else:
-            valid_double_emphasis= True
-        valid_de_emphasis = True     
+            valid_double_Phalasis= True
+        valid_de_Phalasis = True     
         de_emph_vld_flag_arr.pop()
-    elif (kp == "' '" ) and valid_double_emphasis== True:  # double space
+    elif (kp == "' '" ) and valid_double_Phalasis== True:  # double space
         last_len= len(main_text_stack.pop())
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
-        od_uni = Double_Emphasis_map[last_od_type]            
+        od_uni = Double_Phalasis_map[last_od_type]            
         od_chr = repr(od_uni)
         text_box.insert(tkinter.END, od_chr [1:-1])
         main_text_stack.append(od_chr [1:-1])
-        valid_emphasis = False  
-        valid_double_emphasis= False
-        valid_de_emphasis= True
+        valid_Phalasis = False  
+        valid_double_Phalasis= False
+        valid_de_Phalasis= True
         de_emph_vld_flag_arr.pop()
     elif kp in valid_EN_char :
         od_uni = characterMap[kp]
@@ -71,14 +71,14 @@ def key(event):
         main_text_stack.append( last_od_type )
         last_input= kp
         last_char_flag.append(True)
-        valid_de_emphasis = False
-        valid_double_emphasis= False
+        valid_de_Phalasis = False
+        valid_double_Phalasis= False
         if kp in empasis_exclusion_list :
-            valid_emphasis = False
+            valid_Phalasis = False
         else:
-            valid_emphasis = True
+            valid_Phalasis = True
     elif kp == "'\\x08'" : # Backspace
-        valid_de_emphasis = de_emph_vld_flag_arr.pop()
+        valid_de_Phalasis = de_emph_vld_flag_arr.pop()
         back_odia_chr_check = last_char_flag.pop()
         last_od_type = main_text_stack.pop() #text_box.get('end-2c', 'end-1c')
         # print (de_emph_vld_flag_arr , last_char_flag, main_text_stack)
@@ -86,9 +86,9 @@ def key(event):
         last_len= len(last_od_type)
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
         
-        if back_odia_chr_check and valid_de_emphasis:
+        if back_odia_chr_check and valid_de_Phalasis:
             if last_od_type in valid_od_char_deEmpasized:
-                od_uni = De_Emphasis_map[last_od_type]
+                od_uni = De_Phalasis_map[last_od_type]
                 od_chr = repr(od_uni)
                 last_od_type = od_chr[1:-1]
                 text_box.insert(tkinter.END,last_od_type  )
@@ -97,14 +97,14 @@ def key(event):
             
                 last_od_type = main_text_stack[-1] 
                 if last_od_type in valid_od_char:
-                    valid_emphasis = True
-                    valid_double_emphasis= False
+                    valid_Phalasis = True
+                    valid_double_Phalasis= False
                 elif last_od_type in valid_od_char_empasized:
-                    valid_emphasis = False
-                    valid_double_emphasis= True
+                    valid_Phalasis = False
+                    valid_double_Phalasis= True
                 else:
-                    valid_emphasis, valid_double_emphasis = False, False
-                de_emph_vld_flag_arr.append(valid_de_emphasis)
+                    valid_Phalasis, valid_double_Phalasis = False, False
+                de_emph_vld_flag_arr.append(valid_de_Phalasis)
         if len(main_text_stack) == 1:
             main_text_stack.append('')
         if len(de_emph_vld_flag_arr) == 1:
@@ -114,9 +114,9 @@ def key(event):
         text_box.config(state="disabled")   
         return            
     else:
-        valid_emphasis = False
-        valid_double_emphasis= False 
-        valid_de_emphasis = False
+        valid_Phalasis = False
+        valid_double_Phalasis= False 
+        valid_de_Phalasis = False
         last_char_flag.append(False)
         if len (kp) == 3:
             if kp == "'['":
@@ -142,7 +142,7 @@ def key(event):
                 last_char_flag.pop()
                 text_box.config(state="disabled") 
                 return
-    de_emph_vld_flag_arr.append(valid_de_emphasis)
+    de_emph_vld_flag_arr.append(valid_de_Phalasis)
     text_box.config(state="disabled")   
     
 
