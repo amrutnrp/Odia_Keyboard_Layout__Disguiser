@@ -37,7 +37,7 @@ def key(event):
     text_box.config(state="normal")
     #print ("pressed", kp,  len(kp)) #repr(event.char))
     #print (len(de_emph_vld_flag_arr),len(last_char_flag),len(main_text_stack), main_text_stack ) 
-    if (kp == "'\\t'" or kp == "']'" ) and  valid_emphasis== True: #space
+    if (kp == "' '" ) and  valid_emphasis== True: #space
         last_od_type = main_text_stack.pop()    
         last_len= len(last_od_type)
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
@@ -52,7 +52,7 @@ def key(event):
             valid_double_emphasis= True
         valid_de_emphasis = True     
         de_emph_vld_flag_arr.pop()
-    elif (kp == "'\\t'" or kp == "']'" ) and valid_double_emphasis== True:  # double space
+    elif (kp == "' '" ) and valid_double_emphasis== True:  # double space
         last_len= len(main_text_stack.pop())
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
         od_uni = Double_Emphasis_map[last_od_type]            
@@ -135,7 +135,7 @@ def key(event):
             if kp == "'\\r'":  #Enter
                 text_box.insert(tkinter.END, '\n')     
                 main_text_stack.append('\n')
-            elif kp == "' '":  #space
+            elif kp == "'\\t'":  #space
                 text_box.insert(tkinter.END, ' ')          
                 main_text_stack.append(' ')
             else: 
