@@ -15,3 +15,10 @@ If you're interested to make similar Kayboard for other indic languages, please 
 In Future, Planning to make a Hardware Dongle to convert regular USB keyboard to Odia compatible Keyboard.
 The Odia Keyboard will have it's new features and custom ways of typing without any 3rd party software installation.
 But that looks  difficult as of now- because of the implementation.
+
+
+Install the following python libraries before starting the program
+Python 3 only (No Python2 support)
+Tkinter (default)
+pyperclip
+

@@ -138,6 +138,9 @@ Superset_empasis_map = {**Phalasis_map,**Shift_Phalasis_map , **juktakhar_Phalas
 valid_od_char = Interpreted_LUT [1]+Interpreted_LUT [3] + list(juktakhar_Phalasis.keys())#+Interpreted_LUT [2]
 valid_od_char_empasized = Interpreted_LUT [2]
 
+Emphasis_or_Alt_shift = dict(zip(Interpreted_LUT [1], Interpreted_LUT [3])) 
+Emphasis_root = Interpreted_LUT[1]
+# Emphasis_or_Alt_shift results and Phalasis_root are same
 #valid_od_char = list(characterMap.keys() )
 
 

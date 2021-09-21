@@ -7,7 +7,7 @@ Created on Fri Sep 17 02:37:17 2021
 import pyperclip
 import tkinter
 root = tkinter.Tk()
-from Import_odia_process import De_Phalasis_map,Double_Phalasis_map, empasis_exclusion_list  , single_Phalasis_exclusion_list, valid_EN_char, valid_od_char, valid_od_char_deEmpasized, valid_od_char_empasized,characterMap, Superset_empasis_map
+from Import_odia_process import De_Phalasis_map,Double_Phalasis_map, empasis_exclusion_list  , single_Phalasis_exclusion_list, valid_EN_char, valid_od_char, valid_od_char_deEmpasized, valid_od_char_empasized,characterMap, Superset_empasis_map, Emphasis_or_Alt_shift, Emphasis_root
 
 print('Programm starting...')
 chr_pressed =None
@@ -16,7 +16,6 @@ flag=0
 #main_string = ""
 valid_Phalasis = False
 valid_double_Phalasis= False
-last_input = ''
 last_od_type = '%'
 valid_de_Phalasis = False
 main_text_stack = ['']
@@ -28,7 +27,7 @@ def key(event):
     if len(kp)==2 or len (kp) == 0 :
         return    
     
-    global chr_pressed, valid_Phalasis ,last_input
+    global chr_pressed, valid_Phalasis
     global last_char_flag, main_text_stack
     global valid_double_Phalasis, last_od_type
     global valid_de_Phalasis, de_emph_vld_flag_arr
@@ -38,13 +37,12 @@ def key(event):
     #print ("pressed", kp,  len(kp)) #repr(event.char))
     #print (len(de_emph_vld_flag_arr),len(last_char_flag),len(main_text_stack), main_text_stack ) 
     if (kp == "' '" ) and  valid_Phalasis== True: #space
-        last_od_type = main_text_stack.pop()    
+        last_od_type = main_text_stack[-1]   
         last_len= len(last_od_type)
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
         od_uni = Superset_empasis_map[last_od_type]            
-        od_chr = repr(od_uni)
-        text_box.insert(tkinter.END, od_chr [1:-1])   
-        main_text_stack.append(od_chr [1:-1])
+        text_box.insert(tkinter.END, od_uni)   
+        main_text_stack[-1] = od_uni
         valid_Phalasis = False  
         if last_od_type in single_Phalasis_exclusion_list:
             valid_double_Phalasis= False
@@ -53,23 +51,20 @@ def key(event):
         valid_de_Phalasis = True     
         de_emph_vld_flag_arr.pop()
     elif (kp == "' '" ) and valid_double_Phalasis== True:  # double space
-        last_len= len(main_text_stack.pop())
+        last_od_type = main_text_stack[-1]       
+        last_len= len(last_od_type)
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
         od_uni = Double_Phalasis_map[last_od_type]            
-        od_chr = repr(od_uni)
-        text_box.insert(tkinter.END, od_chr [1:-1])
-        main_text_stack.append(od_chr [1:-1])
+        text_box.insert(tkinter.END, od_uni)
+        main_text_stack[-1] = od_uni
         valid_Phalasis = False  
         valid_double_Phalasis= False
         valid_de_Phalasis= True
         de_emph_vld_flag_arr.pop()
     elif kp in valid_EN_char :
         od_uni = characterMap[kp]
-        od_chr = repr(od_uni)
-        last_od_type= od_chr[1:-1]
-        text_box.insert(tkinter.END, last_od_type )
-        main_text_stack.append( last_od_type )
-        last_input= kp
+        text_box.insert(tkinter.END, od_uni )
+        main_text_stack.append( od_uni )
         last_char_flag.append(True)
         valid_de_Phalasis = False
         valid_double_Phalasis= False
@@ -89,13 +84,11 @@ def key(event):
         if back_odia_chr_check and valid_de_Phalasis:
             if last_od_type in valid_od_char_deEmpasized:
                 od_uni = De_Phalasis_map[last_od_type]
-                od_chr = repr(od_uni)
-                last_od_type = od_chr[1:-1]
+                last_od_type = od_uni
                 text_box.insert(tkinter.END,last_od_type  )
                 main_text_stack.append(last_od_type)
                 last_char_flag.append(True)
-            
-                last_od_type = main_text_stack[-1] 
+                
                 if last_od_type in valid_od_char:
                     valid_Phalasis = True
                     valid_double_Phalasis= False
@@ -113,6 +106,18 @@ def key(event):
             last_char_flag.append(False)
         text_box.config(state="disabled")   
         return            
+    elif  49 <= ord(kp[1]) <= 56 and valid_Phalasis:
+        print ('somehpow entered')
+        last_od_type = main_text_stack[-1]
+        if last_od_type in Emphasis_root:
+            last_len= len( last_od_type )
+            text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')            
+            od_uni = Emphasis_or_Alt_shift [last_od_type]
+            print ('here we gpot  ', od_uni )
+            text_box.insert(tkinter.END, od_uni) 
+            main_text_stack[-1] = od_uni
+        text_box.config(state="disabled") 
+        return
     else:
         valid_Phalasis = False
         valid_double_Phalasis= False 
@@ -126,8 +131,10 @@ def key(event):
                 text_box.config(state="disabled")   
                 return
             elif kp == "']'" :
-                text_box.config(state="disabled")  
-                return
+                text_box.insert(tkinter.END, ' ')          
+                main_text_stack.append(' ')                
+                # text_box.config(state="disabled")  
+                # return
             else:
                 text_box.insert(tkinter.END, kp[1])
                 main_text_stack.append(kp[1])
