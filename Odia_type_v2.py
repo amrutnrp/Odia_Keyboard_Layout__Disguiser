@@ -135,7 +135,7 @@ def key(event):
             if kp == "'\\r'":  #Enter
                 text_box.insert(tkinter.END, '\n')     
                 main_text_stack.append('\n')
-            elif kp == "'\\t'":  #space
+            elif kp == "'\\t'" or kp == "']'":  #space
                 text_box.insert(tkinter.END, ' ')          
                 main_text_stack.append(' ')
             else: 
