@@ -76,7 +76,7 @@ Shift_map            = dict(zip(Odia_data_3[0], Interpreted_LUT [3]))
 Phalasis_map         = dict(zip(Interpreted_LUT [1], Interpreted_LUT [2])) 
 Shift_Phalasis_map   = dict(zip(Interpreted_LUT[3], Interpreted_LUT [4]))   #Shift_Phalasis_map = single time Phalasis only
 
-Double_Phalasis_map   = dict(zip(Interpreted_LUT [1], Interpreted_LUT [4])) 
+Double_Phalasis_map   = dict(zip(Interpreted_LUT [2], Interpreted_LUT [4])) 
 
 De_Phalasis_map   = dict(zip(emp_arr [0]+emp_arr [2], emp_arr[1]+emp_arr [3])) 
 valid_od_char_deEmpasized = emp_arr [0]+emp_arr [2]
