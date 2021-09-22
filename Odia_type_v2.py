@@ -7,7 +7,7 @@ Created on Fri Sep 17 02:37:17 2021
 import pyperclip
 import tkinter
 root = tkinter.Tk()
-from Import_odia_process import  de_EmPhalaSis_map,Double_Phalasis_map, empasis_exclusion_list  , valid_EN_char, valid_odChr_base_no_EmPhalaSis, odChr_CanBe_de_EmPhalaSized, valid_odChr_EmPhalaSized,characterMap, Superset_EmPhalasis_map, last_EmPhalasis_list
+from Import_odia_process import  de_EmPhalaSis_map, empasis_exclusion_list , valid_EN_char, valid_odChr_base_no_EmPhalaSis, odChr_CanBe_de_EmPhalaSized, characterMap, Superset_EmPhalasis_map, last_EmPhalasis_list
 #single_EmPhalasis_exclusion_list
 
 print('Programm starting...')
@@ -16,7 +16,6 @@ chr_pressed =None
 #import re
 #main_string = ""
 valid_EmPhalasis = False
-valid_double_EmPhalasis= False
 last_od_type = '%'
 valid_de_EmPhalasis = False
 main_text_stack = ['']
@@ -32,7 +31,7 @@ def key(event):
     global Disable_Odia_FSM, Disable_Odia_typing
     global chr_pressed, valid_EmPhalasis
     global last_char_flag, main_text_stack
-    global valid_double_EmPhalasis, last_od_type
+    global  last_od_type
     global valid_de_EmPhalasis, de_emph_vld_flag_arr
     chr_pressed = kp
 
@@ -64,24 +63,12 @@ def key(event):
             valid_EmPhalasis= True
         valid_de_EmPhalasis = True     
         de_emph_vld_flag_arr.pop()
-    # elif (kp == "'\\t'" or kp == "']'") and valid_double_EmPhalasis== True:  # double space
-    #     last_od_type = main_text_stack[-1]       
-    #     last_len= len(last_od_type)
-    #     text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
-    #     od_uni = Double_Phalasis_map[last_od_type]            
-    #     text_box.insert(tkinter.END, od_uni)
-    #     main_text_stack[-1] = od_uni
-    #     valid_EmPhalasis = False  
-    #     valid_double_EmPhalasis= False
-    #     valid_de_EmPhalasis= True
-    #     de_emph_vld_flag_arr.pop()
     elif not (Disable_Odia_typing) and kp in valid_EN_char :
         od_uni = characterMap[kp]
         text_box.insert(tkinter.END, od_uni )
         main_text_stack.append( od_uni )
         last_char_flag.append(True)
         valid_de_EmPhalasis = False
-        valid_double_EmPhalasis= False
         if kp in empasis_exclusion_list :
             valid_EmPhalasis = False
         else:
@@ -108,12 +95,8 @@ def key(event):
                     
                     if last_od_type in valid_odChr_base_no_EmPhalaSis:
                         valid_EmPhalasis = True
-                        valid_double_EmPhalasis= False
-                    elif last_od_type in valid_odChr_EmPhalaSized:
-                        valid_EmPhalasis = False
-                        valid_double_EmPhalasis= True
                     else:
-                        valid_EmPhalasis, valid_double_EmPhalasis = False, False
+                        valid_EmPhalasis= False
                     de_emph_vld_flag_arr.append(valid_de_EmPhalasis)
         if len(main_text_stack) <= 1:
             main_text_stack.append('')
@@ -125,7 +108,6 @@ def key(event):
         return            
     else:
         valid_EmPhalasis = False
-        valid_double_EmPhalasis= False 
         valid_de_EmPhalasis = False
         last_char_flag.append(False)
         if len (kp) == 3:
@@ -159,7 +141,6 @@ def key(event):
         #text_box.insert(tkinter.END, repr((kp)))
         #text_box.config(state="disabled")
         valid_EmPhalasis = False
-        valid_double_EmPhalasis= False
         last_od_type = '%'
         valid_de_EmPhalasis = False
         main_text_stack = ['']

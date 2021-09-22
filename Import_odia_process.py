@@ -136,7 +136,7 @@ characterMap= {**Normal_map, **Numbers_map, **Shift_map , **control_based_juktak
 Superset_EmPhalasis_map = {**Emphasis_map,**Shift_Phalasis_map, **Double_Phalasis_map , **juktakhar_Phalasis }
 
 
-valid_odChr_base_no_EmPhalaSis = Interpreted_LUT [1]+Interpreted_LUT [3] + list(juktakhar_Phalasis.keys())#+Interpreted_LUT [2]
-valid_odChr_EmPhalaSized = Interpreted_LUT [2]
+valid_odChr_base_no_EmPhalaSis = Interpreted_LUT [1]+Interpreted_LUT [3] + list(juktakhar_Phalasis.keys()) +Interpreted_LUT [2]
+# valid_odChr_EmPhalaSized = Interpreted_LUT [2]
 
 last_EmPhalasis_list = Interpreted_LUT [4]
