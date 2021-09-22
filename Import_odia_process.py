@@ -68,22 +68,6 @@ for j,i in enumerate( Interpreted_LUT [1]):
     de_emphasis_arr[2].append(Interpreted_LUT [4][j])
     de_emphasis_arr[3].append(Interpreted_LUT [3][j])
 
-
-Numbers_map          = dict(zip(Odia_data_3[2], Interpreted_LUT [0]))  # dict(zip(keys, values))
-Normal_map           = dict(zip(Odia_data_3[1], Interpreted_LUT [1]))  
-Shift_map            = dict(zip(Odia_data_3[0], Interpreted_LUT [3])) 
-
-Phalasis_map         = dict(zip(Interpreted_LUT [1], Interpreted_LUT [2])) 
-Shift_Phalasis_map   = dict(zip(Interpreted_LUT[3], Interpreted_LUT [4]))   #Shift_Phalasis_map = single time Phalasis only
-
-Double_Phalasis_map   = dict(zip(Interpreted_LUT [2], Interpreted_LUT [4])) 
-
-De_Phalasis_map   = dict(zip(de_emphasis_arr [0]+de_emphasis_arr [2], de_emphasis_arr[1]+de_emphasis_arr [3])) 
-valid_od_char_deEmpasized = de_emphasis_arr [0]+de_emphasis_arr [2]
-
-juktakhar_Phalasis =  dict(zip(Interpreted_LUT[5], Interpreted_LUT [6])) 
-single_Phalasis_exclusion_list = Interpreted_LUT[3]
-
 control_inp_types = [
 "'\\x01'",     #A
 "'\\x02'",     #B 
@@ -126,23 +110,31 @@ for j,i in enumerate(b):
             else:
                 raise KeyboardInterrupt
         control_based_juktakshar [control_inp_types [j]] = i_str
+        
+
+Numbers_map          = dict(zip(Odia_data_3[2], Interpreted_LUT [0]))  # dict(zip(keys, values))
+Normal_map           = dict(zip(Odia_data_3[1], Interpreted_LUT [1]))  
+Shift_map            = dict(zip(Odia_data_3[0], Interpreted_LUT [3])) 
+
+Emphasis_map         = dict(zip(Interpreted_LUT [1], Interpreted_LUT [2])) 
+Shift_Phalasis_map   = dict(zip(Interpreted_LUT[3], Interpreted_LUT [4]))   #Shift_Phalasis_map = single time Phalasis only
+
+Double_Phalasis_map   = dict(zip(Interpreted_LUT [2], Interpreted_LUT [4])) 
+
+de_EmPhalaSis_map   = dict(zip(de_emphasis_arr [0]+de_emphasis_arr [2], de_emphasis_arr[1]+de_emphasis_arr [3])) 
+odChr_CanBe_de_EmPhalaSized = de_emphasis_arr [0]+de_emphasis_arr [2]
+
+juktakhar_Phalasis =  dict(zip(Interpreted_LUT[5], Interpreted_LUT [6])) 
+single_EmPhalasis_exclusion_list = Interpreted_LUT[3]
+
          
 empasis_exclusion_list = empasis_exclusion_list+ Odia_data_3[2]# + list (control_based_juktakshar.keys())     
 valid_EN_char = Odia_data_3[0]+Odia_data_3[1]+Odia_data_3[2] +   list (control_based_juktakshar.keys())     
 
 
 characterMap= {**Normal_map, **Numbers_map, **Shift_map , **control_based_juktakshar}
-Superset_empasis_map = {**Phalasis_map,**Shift_Phalasis_map , **juktakhar_Phalasis }
+Superset_EmPhalasis_map = {**Emphasis_map,**Shift_Phalasis_map, **Double_Phalasis_map , **juktakhar_Phalasis }
 
 
-valid_od_char = Interpreted_LUT [1]+Interpreted_LUT [3] + list(juktakhar_Phalasis.keys())#+Interpreted_LUT [2]
-valid_od_char_empasized = Interpreted_LUT [2]
-
-Emphasis_or_Alt_shift = dict(zip(Interpreted_LUT [1], Interpreted_LUT [3])) 
-Emphasis_root = Interpreted_LUT[1]
-# Emphasis_or_Alt_shift results and Phalasis_root are same
-#valid_od_char = list(characterMap.keys() )
-
-
-#del Interpreted_LUT, Odia_data_3    , master_Odia_LUT    
-#from tkinter import *
+valid_odChr_base_no_EmPhalaSis = Interpreted_LUT [1]+Interpreted_LUT [3] + list(juktakhar_Phalasis.keys())#+Interpreted_LUT [2]
+valid_odChr_EmPhalaSized = Interpreted_LUT [2]
