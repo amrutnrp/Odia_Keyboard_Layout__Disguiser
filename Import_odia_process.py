@@ -125,7 +125,7 @@ de_EmPhalaSis_map   = dict(zip(de_emphasis_arr [0]+de_emphasis_arr [2], de_empha
 odChr_CanBe_de_EmPhalaSized = de_emphasis_arr [0]+de_emphasis_arr [2]
 
 juktakhar_Phalasis =  dict(zip(Interpreted_LUT[5], Interpreted_LUT [6])) 
-single_EmPhalasis_exclusion_list = Interpreted_LUT[3]
+# single_EmPhalasis_exclusion_list = Interpreted_LUT[3]
 
          
 empasis_exclusion_list = empasis_exclusion_list+ Odia_data_3[2]# + list (control_based_juktakshar.keys())     
@@ -138,3 +138,5 @@ Superset_EmPhalasis_map = {**Emphasis_map,**Shift_Phalasis_map, **Double_Phalasi
 
 valid_odChr_base_no_EmPhalaSis = Interpreted_LUT [1]+Interpreted_LUT [3] + list(juktakhar_Phalasis.keys())#+Interpreted_LUT [2]
 valid_odChr_EmPhalaSized = Interpreted_LUT [2]
+
+last_EmPhalasis_list = Interpreted_LUT [4]

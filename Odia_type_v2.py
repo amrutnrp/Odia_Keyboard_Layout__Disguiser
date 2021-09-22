@@ -7,8 +7,8 @@ Created on Fri Sep 17 02:37:17 2021
 import pyperclip
 import tkinter
 root = tkinter.Tk()
-from Import_odia_process import  *
-#de_EmPhalaSis_map,Double_Phalasis_map, empasis_exclusion_list  , single_EmPhalasis_exclusion_list, valid_EN_char, valid_odChr_base_no_EmPhalaSis, odChr_CanBe_de_EmPhalaSized, valid_odChr_EmPhalaSized,characterMap, Superset_EmPhalasis_map
+from Import_odia_process import  de_EmPhalaSis_map,Double_Phalasis_map, empasis_exclusion_list  , valid_EN_char, valid_odChr_base_no_EmPhalaSis, odChr_CanBe_de_EmPhalaSized, valid_odChr_EmPhalaSized,characterMap, Superset_EmPhalasis_map, last_EmPhalasis_list
+#single_EmPhalasis_exclusion_list
 
 print('Programm starting...')
 chr_pressed =None
@@ -51,31 +51,30 @@ def key(event):
         
     #print ("pressed", kp,  len(kp)) #repr(event.char))
     #print (len(de_emph_vld_flag_arr),len(last_char_flag),len(main_text_stack), main_text_stack ) 
-    if (kp == "' '" ) and  valid_EmPhalasis== True: #space
+    if (kp == "'\\t'" or kp == "']'") and  valid_EmPhalasis== True: #space
         last_od_type = main_text_stack[-1]   
         last_len= len(last_od_type)
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
         od_uni = Superset_EmPhalasis_map[last_od_type]            
         text_box.insert(tkinter.END, od_uni)   
         main_text_stack[-1] = od_uni
-        valid_EmPhalasis = False  
-        if last_od_type in single_EmPhalasis_exclusion_list:
-            valid_double_EmPhalasis= False
+        if od_uni in last_EmPhalasis_list:
+            valid_EmPhalasis= False
         else:
-            valid_double_EmPhalasis= True
+            valid_EmPhalasis= True
         valid_de_EmPhalasis = True     
         de_emph_vld_flag_arr.pop()
-    elif (kp == "' '" ) and valid_double_EmPhalasis== True:  # double space
-        last_od_type = main_text_stack[-1]       
-        last_len= len(last_od_type)
-        text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
-        od_uni = Double_Phalasis_map[last_od_type]            
-        text_box.insert(tkinter.END, od_uni)
-        main_text_stack[-1] = od_uni
-        valid_EmPhalasis = False  
-        valid_double_EmPhalasis= False
-        valid_de_EmPhalasis= True
-        de_emph_vld_flag_arr.pop()
+    # elif (kp == "'\\t'" or kp == "']'") and valid_double_EmPhalasis== True:  # double space
+    #     last_od_type = main_text_stack[-1]       
+    #     last_len= len(last_od_type)
+    #     text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
+    #     od_uni = Double_Phalasis_map[last_od_type]            
+    #     text_box.insert(tkinter.END, od_uni)
+    #     main_text_stack[-1] = od_uni
+    #     valid_EmPhalasis = False  
+    #     valid_double_EmPhalasis= False
+    #     valid_de_EmPhalasis= True
+    #     de_emph_vld_flag_arr.pop()
     elif not (Disable_Odia_typing) and kp in valid_EN_char :
         od_uni = characterMap[kp]
         text_box.insert(tkinter.END, od_uni )
@@ -148,7 +147,7 @@ def key(event):
             if kp == "'\\r'":  #Enter
                 text_box.insert(tkinter.END, '\n')     
                 main_text_stack.append('\n')
-            elif kp == "'\\t'" or kp == "']'":  #space
+            elif kp == "' '": #"'\\t'" or kp == "']'":  #space
                 text_box.insert(tkinter.END, ' ')          
                 main_text_stack.append(' ')
             else: 
