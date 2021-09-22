@@ -80,6 +80,8 @@ Double_Phalasis_map   = dict(zip(Interpreted_LUT [2], Interpreted_LUT [4]))
 
 De_Phalasis_map   = dict(zip(emp_arr [0]+emp_arr [2], emp_arr[1]+emp_arr [3])) 
 valid_od_char_deEmpasized = emp_arr [0]+emp_arr [2]
+De_Phalasis_map   = dict(zip(de_emphasis_arr [0]+de_emphasis_arr [2], de_emphasis_arr[1]+de_emphasis_arr [3])) 
+valid_od_char_deEmpasized = de_emphasis_arr [0]+de_emphasis_arr [2]
 
 juktakhar_Phalasis =  dict(zip(Interpreted_LUT[5], Interpreted_LUT [6])) 
 single_Phalasis_exclusion_list = Interpreted_LUT[3]
