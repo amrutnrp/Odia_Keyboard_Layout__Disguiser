@@ -2,6 +2,8 @@
 New Layout and method of typing Odia characters 
 #implemented in Python
 
+v2.0 = This is branch where pressing numbers gives emphasis and pressing space gives phalasis, double space means double phalasis.
+
 You can type Odia Characters in regular Keyboard in very fast manner. 
 Easy to switch from English to Odia Kayboard.
 You run the program, GUI will appear-> Type whatever you want -> "Copy" the content and paste it somewhere.
