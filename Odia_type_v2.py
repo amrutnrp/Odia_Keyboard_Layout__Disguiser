@@ -50,7 +50,7 @@ def key(event):
         
     #print ("pressed", kp,  len(kp)) #repr(event.char))
     #print (len(de_emph_vld_flag_arr),len(last_char_flag),len(main_text_stack), main_text_stack ) 
-    if (kp == "'\\t'" or kp == "']'") and  valid_EmPhalasis== True: #space
+    if (kp == "'\\t'" or kp == "'['") and  valid_EmPhalasis== True: #space
         last_od_type = main_text_stack[-1]   
         last_len= len(last_od_type)
         text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
@@ -111,13 +111,13 @@ def key(event):
         valid_de_EmPhalasis = False
         last_char_flag.append(False)
         if len (kp) == 3:
-            if kp == "'['":
+            if kp == "']'":
                 last_char_flag.pop()
                 pyperclip.copy(text_box.get('1.0', tkinter.END))
                 #pyperclip.copy(''.join(main_text_stack) )  # Commented out after implementation of ENG switch
                 text_box.config(state="disabled")   
                 return
-            elif kp == "']'" :
+            elif kp == "'['" :
                 text_box.insert(tkinter.END, ' ')          
                 main_text_stack.append(' ')                
                 # text_box.config(state="disabled")  
