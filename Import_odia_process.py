@@ -54,19 +54,19 @@ for i in [4,5,6,7,8, 11,12]:
 empasis_exclusion_list = [' ']
 
 
-del currentPlace, Odia_data2, temp_LUT, master_gen_LUT, line
-del k_str, k_item, j_item, j, k, i, item, filehandle, 
+# del currentPlace, Odia_data2, temp_LUT, master_gen_LUT, line
+# del k_str, k_item, j_item, j, k, i, item, filehandle, 
 
 
-emp_arr = [[],[],[],[]]
+de_emphasis_arr = [[],[],[],[]]
 for j,i in enumerate( Interpreted_LUT [1]):
     if  i in  Interpreted_LUT [2] or i in  Interpreted_LUT [3] or  Interpreted_LUT [2][j] in Interpreted_LUT [4] or Interpreted_LUT [3][j] in Interpreted_LUT [4]:
         empasis_exclusion_list.append(i)
         print ('Warning - EXclusion list for empasis  '+ i , j)
-    emp_arr[0].append(Interpreted_LUT [2][j])
-    emp_arr[1].append(i)
-    emp_arr[2].append(Interpreted_LUT [4][j])
-    emp_arr[3].append(Interpreted_LUT [3][j])
+    de_emphasis_arr[0].append(Interpreted_LUT [2][j])
+    de_emphasis_arr[1].append(i)
+    de_emphasis_arr[2].append(Interpreted_LUT [4][j])
+    de_emphasis_arr[3].append(Interpreted_LUT [3][j])
 
 
 Numbers_map          = dict(zip(Odia_data_3[2], Interpreted_LUT [0]))  # dict(zip(keys, values))
