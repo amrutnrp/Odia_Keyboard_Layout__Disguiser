@@ -21,19 +21,34 @@ valid_de_Phalasis = False
 main_text_stack = ['']
 last_char_flag = [False]
 de_emph_vld_flag_arr=  [False]
+Disable_Odia_typing = False
+Disable_Odia_FSM = 0
 #=====================================================================================
 def key(event):
     kp = repr(event.char)
     if len(kp)==2 or len (kp) == 0 :
-        return    
-    
+        return
+    global Disable_Odia_FSM, Disable_Odia_typing
     global chr_pressed, valid_Phalasis
     global last_char_flag, main_text_stack
     global valid_double_Phalasis, last_od_type
     global valid_de_Phalasis, de_emph_vld_flag_arr
     chr_pressed = kp
-    
+
     text_box.config(state="normal")
+    if kp == "'`'":
+        if Disable_Odia_FSM ==0:
+            Disable_Odia_FSM = 1
+        else:# Disable_Odia_FSM ==1:
+            Disable_Odia_typing = not (Disable_Odia_typing )
+            Disable_Odia_FSM = 0
+            text_box.delete('end-2c', 'end-1c')
+            text_box.config(state="disabled")
+            return
+    elif Disable_Odia_FSM == 1 :
+        Disable_Odia_FSM = 0
+        text_box.delete('end-2c', 'end-1c')
+        text_box.insert(tkinter.END, '`')
     #print ("pressed", kp,  len(kp)) #repr(event.char))
     #print (len(de_emph_vld_flag_arr),len(last_char_flag),len(main_text_stack), main_text_stack ) 
     if (kp == "' '" ) and  valid_Phalasis== True: #space
@@ -61,7 +76,7 @@ def key(event):
         valid_double_Phalasis= False
         valid_de_Phalasis= True
         de_emph_vld_flag_arr.pop()
-    elif kp in valid_EN_char :
+    elif not (Disable_Odia_typing) and kp in valid_EN_char :
         od_uni = characterMap[kp]
         text_box.insert(tkinter.END, od_uni )
         main_text_stack.append( od_uni )
@@ -79,7 +94,10 @@ def key(event):
         # print (de_emph_vld_flag_arr , last_char_flag, main_text_stack)
         
         last_len= len(last_od_type)
-        text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
+        if Disable_Odia_typing :
+            text_box.delete('end-2c', 'end-1c')
+        else:
+            text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
         
         if back_odia_chr_check and valid_de_Phalasis:
             if last_od_type in valid_od_char_deEmpasized:
@@ -98,22 +116,21 @@ def key(event):
                 else:
                     valid_Phalasis, valid_double_Phalasis = False, False
                 de_emph_vld_flag_arr.append(valid_de_Phalasis)
-        if len(main_text_stack) == 1:
+        if len(main_text_stack) <= 1:
             main_text_stack.append('')
-        if len(de_emph_vld_flag_arr) == 1:
+        if len(de_emph_vld_flag_arr) <= 1:
             de_emph_vld_flag_arr.append(False)
-        if len(last_char_flag) == 1:
+        if len(last_char_flag) <= 1:
             last_char_flag.append(False)
         text_box.config(state="disabled")   
         return            
     elif  49 <= ord(kp[1]) <= 56 and valid_Phalasis:
-        print ('somehpow entered')
+        #print ('somehpow entered')
         last_od_type = main_text_stack[-1]
         if last_od_type in Emphasis_root:
             last_len= len( last_od_type )
             text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')            
             od_uni = Emphasis_or_Alt_shift [last_od_type]
-            print ('here we gpot  ', od_uni )
             text_box.insert(tkinter.END, od_uni) 
             main_text_stack[-1] = od_uni
         text_box.config(state="disabled") 
@@ -149,8 +166,19 @@ def key(event):
                 last_char_flag.pop()
                 text_box.config(state="disabled") 
                 return
-    de_emph_vld_flag_arr.append(valid_de_Phalasis)
     text_box.config(state="disabled")   
+    if Disable_Odia_typing :
+        #text_box.insert(tkinter.END, repr((kp)))
+        #text_box.config(state="disabled")
+        valid_Phalasis = False
+        valid_double_Phalasis= False
+        last_od_type = '%'
+        valid_de_Phalasis = False
+        main_text_stack = ['']
+        last_char_flag = [False]
+        de_emph_vld_flag_arr=  [False]
+        return
+    de_emph_vld_flag_arr.append(valid_de_Phalasis)
     
 
 
