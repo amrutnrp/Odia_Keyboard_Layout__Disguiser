@@ -47,6 +47,11 @@ def key(event):
             return
     elif Disable_Odia_FSM == 1 :
         Disable_Odia_FSM = 0
+        if kp == "'-'":
+            text_box.delete('1.0', tkinter.END)
+            Disable_Odia_typing= True
+            kp = "' '"
+            Disable_Odia_FSM = 3
         
     #print ("pressed", kp,  len(kp)) #repr(event.char))
     #print (len(de_emph_vld_flag_arr),len(last_char_flag),len(main_text_stack), main_text_stack ) 
@@ -146,6 +151,9 @@ def key(event):
         main_text_stack = ['']
         last_char_flag = [False]
         de_emph_vld_flag_arr=  [False]
+        if Disable_Odia_FSM == 3:
+            Disable_Odia_FSM =0
+            Disable_Odia_typing = False
         return
     de_emph_vld_flag_arr.append(valid_de_EmPhalasis)
     
