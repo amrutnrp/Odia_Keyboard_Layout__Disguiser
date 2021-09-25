@@ -2,10 +2,10 @@
 New Layout and method of typing Odia characters 
 #implemented in Python
 
-__v3.0 is a very functional keyboard. It was tesetd by the author in transcripting few pages from 'Sadhaba Jhia'. 
+**v3.0 is a very functional keyboard. It was tesetd by the author in transcripting few pages from 'Sadhaba Jhia'. 
 It can offer moderate speed, but not in a reading speed of odia.
 Got a few more ideas and thinking of implementing it in main branch
-Thank you for visiting. __
+Thank you for visiting.**
 
 
 You can type Odia Characters in regular Keyboard in very fast manner. 
