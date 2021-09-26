@@ -130,3 +130,4 @@ dmypy.json
 .~lock.mapping_in_excel.ods#
 *.pdf
 *.odt
+*.ods#
