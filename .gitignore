@@ -128,3 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .~lock.mapping_in_excel.ods#
+*.pdf
+*.odt
