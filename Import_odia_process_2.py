@@ -101,10 +101,11 @@ Dict_special_symbol_map = {}
 for i in range(len(temp_control_op )):
     if not temp_control_op [i] == '':
         Dict_special_symbol_map [str ( control_inp_types [i] )] = temp_control_op [i] 
-        
+
+special_symbols = list(Dict_special_symbol_map.keys())  # ouan and iyan for control keys
+
+Number_map = {}
 temp_control_op = get_eq_char( num_and_symbols_preMap )
 for i in range (len(num_and_symbols)):
-    Dict_special_symbol_map[str ( num_and_symbols [i] ) ] = temp_control_op [i]
+    Number_map[str ( num_and_symbols [i] ) ] = temp_control_op [i]
         
-special_symbols = list(Dict_special_symbol_map.keys())
-
