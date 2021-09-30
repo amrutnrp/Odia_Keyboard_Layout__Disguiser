@@ -39,4 +39,9 @@ right_side_margin = 8
 threshold_class0_end = 6
 threshold_class1_end = 14
 threshold_class2_end = 20
-threshold_class3_end = 23
+threshold_class3_end = 24
+
+class0_Column_length = 3
+class1_Column_length = 4
+class2_Column_length = 6
+class3_Column_length = 6
