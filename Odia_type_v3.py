@@ -102,6 +102,8 @@ def key(event):
                 to_delete_last = True
                 
                 ascii_num = ord ( eng_stack [-1] )
+                flagC = isCap (ascii_num)
+                flagD = isSmall (ascii_num)
                 eng_stack.append( '-h-')
                 isIt_emphasized_now_h, isIt_emphasized_now_f = True, False
                 if flagD :
@@ -114,7 +116,7 @@ def key(event):
                 to_delete_last  =True
                 
                 ascii_num = ord ( eng_stack [-1] )
-                        
+                flagC = isCap (ascii_num)
                 # No capital possible here            
                 mode = 2
                 eng_stack.append('-f-')
