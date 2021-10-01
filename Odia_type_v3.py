@@ -48,7 +48,7 @@ def key(event):
 
     chr_pressed = kp
     
-    print (eng_stack )
+    # print (kp, len(eng_stack) , len(main_text_stack), len(h_flag_list),len(f_flag_list) )
 
     text_box.config(state="normal")
     if kp == "'`'":
@@ -85,56 +85,41 @@ def key(event):
 
         
         if flagA or flagB or flagC or flagD: 
+            to_delete_last = False
 
             if flagF:
                 mode = 4
-                od_uni = main_text_stack [-1]
-                last_len= len(od_uni)
-                text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
-                
+                to_delete_last = True
                 ascii_num = ord ( eng_stack [-2] )      
                 eng_stack.append('-hf-')
                 h_emphasis_flag, f_emphasis_flag = False, False
                 if ascii_num== ascii_h:
-                    h_flag_list .append ([True, h_emphasis_flag])
-                    f_flag_list .append ([False, f_emphasis_flag]) 
+                    isIt_emphasized_now_h, isIt_emphasized_now_f = True, False
                 else:
-                    h_flag_list .append ([False, h_emphasis_flag])
-                    f_flag_list .append ([True, f_emphasis_flag]) 
-                      
+                    isIt_emphasized_now_h, isIt_emphasized_now_f = False, True                  
                 
             elif flagA:
-                od_uni = main_text_stack [-1]
-                last_len= len(od_uni)
-                text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
+                to_delete_last = True
                 
                 ascii_num = ord ( eng_stack [-1] )
                 eng_stack.append( '-h-')
-                
+                isIt_emphasized_now_h, isIt_emphasized_now_f = True, False
                 if flagD :
                     mode = 1
                     h_emphasis_flag, f_emphasis_flag = False, True
-                    h_flag_list .append ([True, h_emphasis_flag])
-                    f_flag_list .append ([False, f_emphasis_flag])                  
                 else: #flagD
                     mode = 5
                     h_emphasis_flag, f_emphasis_flag = False, False
-                    h_flag_list .append ([True, h_emphasis_flag])
-                    f_flag_list .append ([False, f_emphasis_flag])                       
             elif flagB:
-                od_uni = main_text_stack [-1]
-                last_len= len(od_uni)
-                text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
+                to_delete_last  =True
                 
                 ascii_num = ord ( eng_stack [-1] )
-                
                         
                 # No capital possible here            
                 mode = 2
                 eng_stack.append('-f-')
                 h_emphasis_flag, f_emphasis_flag = True, False
-                h_flag_list .append ([False, h_emphasis_flag])
-                f_flag_list .append ([True, f_emphasis_flag])  
+                isIt_emphasized_now_h, isIt_emphasized_now_f = False, True
             elif flagE:
                 text_box.config(state="disabled")  
                 return    
@@ -142,15 +127,13 @@ def key(event):
                 mode = 3
                 h_emphasis_flag , f_emphasis_flag = True, False 
                 eng_stack.append(kp[1] )
-                h_flag_list .append ([False, h_emphasis_flag])
-                f_flag_list .append ([False, f_emphasis_flag])  
+                isIt_emphasized_now_h, isIt_emphasized_now_f = False, False
                 # pass
             elif flagD:
                 mode = 0
                 h_emphasis_flag, f_emphasis_flag = True, True
                 eng_stack.append(kp[1] )
-                h_flag_list .append ([False, h_emphasis_flag])
-                f_flag_list .append ([False, f_emphasis_flag])  
+                isIt_emphasized_now_h, isIt_emphasized_now_f = False, False
                 # pass
             else:
                 # text_box.config(state="disabled")   
@@ -160,13 +143,34 @@ def key(event):
 
             class_index_num = (ascii_num - 65) if flagC else (ascii_num - 97)                
 
-            print (mode, class_index_num)            
+            # print (mode, class_index_num)            
                        
-            print (mode, text_LUT [class_index_num] )
+            # print (mode, text_LUT [class_index_num] )
+            col = text_LUT [class_index_num]
+            if 0 < col <= threshold_class0_end and mode < class0_Column_length :
+                pass
+            elif threshold_class0_end < col <= threshold_class1_end and mode < class1_Column_length :
+                pass
+            elif  threshold_class1_end < col <= threshold_class2_end and mode < class2_Column_length:   
+                pass 
+            elif threshold_class2_end < col <= threshold_class3_end and mode < class3_Column_length:
+                pass
+            else:
+                print ('Invalid character call')
+                text_box.config(state="disabled") 
+                return
+                
+            if to_delete_last == True:
+                od_uni = main_text_stack [-1]
+                last_len= len(od_uni)
+                text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
+                
+            
             od_uni = get_LUT(mode, text_LUT [class_index_num] )
             text_box.insert(tkinter.END, od_uni )
             main_text_stack.append( od_uni ) 
-            
+            h_flag_list .append ([isIt_emphasized_now_h, h_emphasis_flag])
+            f_flag_list .append ([isIt_emphasized_now_f, f_emphasis_flag])             
             
             
 
@@ -238,7 +242,9 @@ def key(event):
             
         else:
             eng_stack.append( kp )
-            h_flag_list .append ([False,False])             
+            h_flag_list .append ([False,False])  
+            f_flag_list .append ([False,False])  
+            
             if kp == "'\\r'":  #Enter
                 text_box.insert(tkinter.END, '\n')     
                 main_text_stack.append('\n')
@@ -251,10 +257,11 @@ def key(event):
             else:
                 eng_stack. pop()
                 h_flag_list.pop ()
+                f_flag_list.pop()
                 text_box.config(state="disabled") 
                 return
                     
-    print (eng_stack )#, main_text_stack, h_flag_list)
+    # print (len(eng_stack) , len(main_text_stack), len(h_flag_list),len(f_flag_list) )
     text_box.config(state="disabled")   
     if Disable_Odia_typing :
         #text_box.insert(tkinter.END, repr((kp)))

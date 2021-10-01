@@ -82,11 +82,12 @@ def get_LUT (row_mode, col):
         pass
     else:
         print ('Invalid character call')
+        return '-err-'
         raise KeyboardInterrupt 
         
     return result_LUT [row_mode*30+col]
 
-temp_control_op = []
+temp_control_op = ['']
 
 for i in range(len(transpose_LUT)):
     temp_control_op.append( transpose_LUT [i][right_side_margin -2])  #carrying it to shirt for 'control'
@@ -100,7 +101,7 @@ result_LUT = [''] + result_LUT
 Dict_special_symbol_map = {}
 for i in range(len(temp_control_op )):
     if not temp_control_op [i] == '':
-        Dict_special_symbol_map [str ( control_inp_types [i] )] = temp_control_op [i] 
+        Dict_special_symbol_map [str ( control_inp_types [text_LUT.index(i)] )] = temp_control_op [i] 
 
 special_symbols = list(Dict_special_symbol_map.keys())  # ouan and iyan for control keys
 
