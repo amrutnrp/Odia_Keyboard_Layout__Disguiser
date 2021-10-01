@@ -81,10 +81,10 @@ def key(event):
         flagE = (ascii_num in fh_l )     
         flagG = isNUmDOT (ascii_num)
         
-        print (flagA, flagB, flagC, flagD, flagF)
+        #print (flagA, flagB, flagC, flagD, flagF, Disable_Odia_typing)
 
         
-        if flagA or flagB or flagC or flagD: 
+        if flagA or flagB or flagC or flagD and not (Disable_Odia_typing): 
             to_delete_last = False
 
             if flagF:
