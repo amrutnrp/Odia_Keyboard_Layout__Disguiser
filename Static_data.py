@@ -36,7 +36,7 @@ control_inp_types = [
 
 
 right_side_margin = 8
-threshold_class0_end = 6
+threshold_class0_end = 5
 threshold_class1_end = 14
 threshold_class2_end = 20
 threshold_class3_end = 24

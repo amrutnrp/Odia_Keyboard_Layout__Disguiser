@@ -91,7 +91,7 @@ def key(event):
                 mode = 4
                 to_delete_last = True
                 ascii_num = ord ( eng_stack [-2] )      
-                eng_stack.append('-hf-')
+                eng_char ='-hf-'
                 h_emphasis_flag, f_emphasis_flag = False, False
                 if ascii_num== ascii_h:
                     isIt_emphasized_now_h, isIt_emphasized_now_f = True, False
@@ -104,7 +104,7 @@ def key(event):
                 ascii_num = ord ( eng_stack [-1] )
                 flagC = isCap (ascii_num)
                 flagD = isSmall (ascii_num)
-                eng_stack.append( '-h-')
+                eng_char =  '-h-'
                 isIt_emphasized_now_h, isIt_emphasized_now_f = True, False
                 if flagD :
                     mode = 1
@@ -119,7 +119,7 @@ def key(event):
                 flagC = isCap (ascii_num)
                 # No capital possible here            
                 mode = 2
-                eng_stack.append('-f-')
+                eng_char  = '-f-'
                 h_emphasis_flag, f_emphasis_flag = True, False
                 isIt_emphasized_now_h, isIt_emphasized_now_f = False, True
             elif flagE:
@@ -128,13 +128,13 @@ def key(event):
             elif flagC:
                 mode = 3
                 h_emphasis_flag , f_emphasis_flag = True, False 
-                eng_stack.append(kp[1] )
+                eng_char = kp[1] 
                 isIt_emphasized_now_h, isIt_emphasized_now_f = False, False
                 # pass
             elif flagD:
                 mode = 0
                 h_emphasis_flag, f_emphasis_flag = True, True
-                eng_stack.append(kp[1] )
+                eng_char =kp[1]
                 isIt_emphasized_now_h, isIt_emphasized_now_f = False, False
                 # pass
             else:
@@ -172,11 +172,13 @@ def key(event):
             text_box.insert(tkinter.END, od_uni )
             main_text_stack.append( od_uni ) 
             h_flag_list .append ([isIt_emphasized_now_h, h_emphasis_flag])
-            f_flag_list .append ([isIt_emphasized_now_f, f_emphasis_flag])             
+            f_flag_list .append ([isIt_emphasized_now_f, f_emphasis_flag])   
+            eng_stack.append(eng_char)
             
             
 
         elif kp == "']'":
+            print ('copied')
             pyperclip.copy(text_box.get('1.0', tkinter.END))
             #pyperclip.copy(''.join(main_text_stack) )  # Commented out after implementation of ENG switch
             text_box.config(state="disabled")   
@@ -228,7 +230,7 @@ def key(event):
             if len(f_flag_list) <= 1:
                 f_flag_list.append([False,False])                
             if len(eng_stack) <= 1:
-                eng_stack.append(False)
+                eng_stack.append('')
             text_box.config(state="disabled")   
             return
         elif kp in special_symbols:
