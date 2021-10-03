@@ -110,3 +110,4 @@ temp_control_op = get_eq_char( num_and_symbols_preMap )
 for i in range (len(num_and_symbols)):
     Number_map[str ( num_and_symbols [i] ) ] = temp_control_op [i]
         
+space_emphasis_list = list(space_emphasis_map.keys())

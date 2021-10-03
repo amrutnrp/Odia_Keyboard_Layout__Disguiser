@@ -15,6 +15,7 @@ chr_pressed =None
 
 h_emphasis_flag = False
 f_emphasis_flag = False
+space_emphasis_flag = False
 
 main_text_stack = ['']
 eng_stack = ['']
@@ -44,7 +45,7 @@ def key(event):
     global  chr_pressed
     global  h_emphasis_flag,f_emphasis_flag
     global eng_stack, main_text_stack, h_flag_list, f_flag_list
-    global Disable_Odia_FSM, Disable_Odia_typing
+    global Disable_Odia_FSM, Disable_Odia_typing, space_emphasis_flag
 
     chr_pressed = kp
     
@@ -80,6 +81,10 @@ def key(event):
         flagF = (h_flag_list [-1][0] and ascii_num== ascii_f ) or (f_flag_list[-1][0] and ascii_num== ascii_h )
         flagE = (ascii_num in fh_l )     
         flagG = isNUmDOT (ascii_num)
+        if space_emphasis_flag:
+            flagH = ascii_num in space_emphasis_list
+        else:
+            flagH = False
         
         #print (flagA, flagB, flagC, flagD, flagF, Disable_Odia_typing)
 
@@ -87,7 +92,15 @@ def key(event):
         if flagA or flagB or flagC or flagD and not (Disable_Odia_typing): 
             to_delete_last = False
 
-            if flagF:
+            if flagH:
+                mode, new_ascii = space_emphasis_map [ascii_num ]
+                ascii_num = ord (new_ascii )
+                isIt_emphasized_now_h, isIt_emphasized_now_f = False, False
+                h_emphasis_flag, f_emphasis_flag = False, False
+                eng_char = kp[1]
+                print (mode, ascii_num)
+                flagC= False
+            elif flagF:
                 mode = 4
                 to_delete_last = True
                 ascii_num = ord ( eng_stack [-2] )      
@@ -181,6 +194,7 @@ def key(event):
             h_flag_list .append ([isIt_emphasized_now_h, h_emphasis_flag])
             f_flag_list .append ([isIt_emphasized_now_f, f_emphasis_flag])   
             eng_stack.append(eng_char)
+            space_emphasis_flag= False
             
             
 
@@ -201,7 +215,8 @@ def key(event):
                 od_uni = kp[1]
                 text_box.insert(tkinter.END, od_uni)
                 if od_uni == " ":
-                    h_emphasis_flag = True                      
+                    space_emphasis_flag= True
+                    # h_emphasis_flag = True                      
             
             eng_stack.append( kp[1] )
             main_text_stack.append( od_uni ) 
