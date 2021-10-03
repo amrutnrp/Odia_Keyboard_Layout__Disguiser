@@ -109,6 +109,13 @@ def key(event):
                 if flagD :
                     mode = 1
                     h_emphasis_flag, f_emphasis_flag = False, True
+                elif ascii_num == 32:
+                    #print ('Ha char only - faking the input')
+                    mode = 0
+                    ascii_num = 120
+                    isIt_emphasized_now_h, isIt_emphasized_now_f = False, False
+                    h_emphasis_flag, f_emphasis_flag = False, False
+                    to_delete_last = False
                 else: #flagD
                     mode = 5
                     h_emphasis_flag, f_emphasis_flag = False, False
@@ -184,17 +191,19 @@ def key(event):
             text_box.config(state="disabled")   
             return
         else:
+            h_emphasis_flag, f_emphasis_flag = False , False
+            h_flag_list .append ([False,False])   
+            f_flag_list .append ([False,False])   
             if flagG :
                 od_uni = Number_map[kp[1]]
-                text_box.insert(tkinter.END, od_uni )
+                text_box.insert(tkinter.END, od_uni)                     
             else:
                 od_uni = kp[1]
                 text_box.insert(tkinter.END, od_uni)
+                if od_uni == " ":
+                    h_emphasis_flag = True                      
             
-            h_flag_list .append ([False,False])   
-            f_flag_list .append ([False,False])   
             eng_stack.append( kp[1] )
-            h_emphasis_flag, f_emphasis_flag = False , False
             main_text_stack.append( od_uni ) 
             
             
@@ -246,16 +255,14 @@ def key(event):
             
         else:
             eng_stack.append( kp )
+            h_emphasis_flag, f_emphasis_flag = False , False
             h_flag_list .append ([False,False])  
             f_flag_list .append ([False,False])  
             
             if kp == "'\\r'":  #Enter
                 text_box.insert(tkinter.END, '\n')     
                 main_text_stack.append('\n')
-            elif kp == "' '": #"'\\t'" or kp == "']'":  #space
-                text_box.insert(tkinter.END, ' ')          
-                main_text_stack.append(' ')
-            elif kp == "'\\t'": #"'\\t'" or kp == "']'":  #space
+            elif kp == "'\\t'": #"'\\t'" or kp == "']'":  # halant for tab 
                 text_box.insert(tkinter.END, chr (2893) )          
                 main_text_stack.append(  chr (2893) )
             else:
