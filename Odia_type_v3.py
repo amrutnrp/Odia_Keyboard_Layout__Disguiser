@@ -234,6 +234,8 @@ def key(event):
             f_emphasis_flag_local = f_flag_list.pop ()
             en_chr = eng_stack.pop()
                      
+            
+            space_emphasis_flag= False
             if Disable_Odia_typing :
                 text_box.delete('end-2c', 'end-1c')
             else:
@@ -277,6 +279,7 @@ def key(event):
             if kp == "'\\r'":  #Enter
                 text_box.insert(tkinter.END, '\n')     
                 main_text_stack.append('\n')
+                space_emphasis_flag= True
             elif kp == "'\\t'": #"'\\t'" or kp == "']'":  # halant for tab 
                 text_box.insert(tkinter.END, chr (2893) )          
                 main_text_stack.append(  chr (2893) )
