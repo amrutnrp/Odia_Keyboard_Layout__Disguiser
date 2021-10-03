@@ -98,7 +98,7 @@ def key(event):
                 isIt_emphasized_now_h, isIt_emphasized_now_f = False, False
                 h_emphasis_flag, f_emphasis_flag = False, False
                 eng_char = kp[1]
-                print (mode, ascii_num)
+                # print (mode, ascii_num)
                 flagC= False
             elif flagF:
                 mode = 4
@@ -214,8 +214,8 @@ def key(event):
             else:
                 od_uni = kp[1]
                 text_box.insert(tkinter.END, od_uni)
-                if od_uni == " ":
-                    space_emphasis_flag= True
+                
+            space_emphasis_flag= True
                     # h_emphasis_flag = True                      
             
             eng_stack.append( kp[1] )
@@ -228,6 +228,7 @@ def key(event):
     else:
     # if (kp == "'\\t'" or kp == "'['") and  valid_EmPhalasis== True: #space
     #     last_od_ty
+        space_emphasis_flag= True
         if kp == "'\\x08'" : # Backspace
             od_uni = main_text_stack.pop()   
             h_emphasis_flag_local = h_flag_list.pop ()
