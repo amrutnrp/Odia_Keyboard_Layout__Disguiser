@@ -1,3 +1,7 @@
+thinking of chaning some stuff, excel row/col feels like a limitatiton. We can just ignore if the map is not present.
+Also, efficiency is too bad. Seriously thinking of making a desktopp software
+Planning to make Hardware dongle- by raspberry pi zero.. let's see how that turns out.
+
 # Odia_Keyboard_Layout
 New Layout and method of typing Odia characters (implemented in python)
 
