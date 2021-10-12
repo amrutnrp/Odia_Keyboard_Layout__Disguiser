@@ -107,7 +107,8 @@ special_symbols = list(Dict_special_symbol_map.keys())  # ouan and iyan for cont
 
 Number_map = {}
 temp_control_op = get_eq_char( num_and_symbols_preMap )
+number_result_ord = []
 for i in range (len(num_and_symbols)):
     Number_map[str ( num_and_symbols [i] ) ] = temp_control_op [i]
-        
+    number_result_ord.append ( ord ( str ( num_and_symbols [i] ) )         )
 space_emphasis_list = list(space_emphasis_map.keys())

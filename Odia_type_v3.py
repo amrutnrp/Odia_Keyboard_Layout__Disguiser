@@ -31,7 +31,8 @@ def isCap (inp1):
 def isSmall (inp2):
     return 97 <= inp2 <= 122
 def isNUmDOT (inp3):
-    return 48 <= inp3 <= 57 or inp3 == 46
+    return inp3 in number_result_ord
+    # return 48 <= inp3 <= 57 or inp3 == 46
 ascii_h = 104
 ascii_f = 102
 ascii_H = 70
