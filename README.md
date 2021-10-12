@@ -1,7 +1,7 @@
-# Odia_Keyboard_Layout_amrut - New Layout and method of typing Odia characters (implemented in python)
+# Odia_Keyboard_Layout
+New Layout and method of typing Odia characters (implemented in python)
 
-
-# This is v4.0, implementated using h-emphasis to spell ka-> kha, and f-emphasis to mix consonants. Staggered Key typing and emphasis buttons in center alllows to type faster- as pressing same key twice or pressing shift frequently, slows down the typing efficiency.
+This is v4.0, implementated using h-emphasis to spell ka-> kha, and f-emphasis to mix consonants. Staggered Key typing and emphasis buttons in center alllows to type faster- as pressing same key twice or pressing shift frequently, slows down the typing efficiency.
 
 Install the following python libraries before starting the program
 Python 3 only (No Python2 support); Tkinter (default); pyperclip
