@@ -4,7 +4,7 @@ Created on Sun Sep 26 17:41:41 2021
 
 @author: amrut
 """
-import pyperclip
+# import pyperclip
 import tkinter
 root = tkinter.Tk()
 
@@ -200,12 +200,12 @@ def key(event):
             
             
 
-        elif kp == "']'":
-            print ('copied')
-            pyperclip.copy(text_box.get('1.0', tkinter.END))
-            #pyperclip.copy(''.join(main_text_stack) )  # Commented out after implementation of ENG switch
-            text_box.config(state="disabled")   
-            return
+        # elif kp == "']'":
+        #     print ('copied')
+        #     pyperclip.copy(text_box.get('1.0', tkinter.END))
+        #     #pyperclip.copy(''.join(main_text_stack) )  # Commented out after implementation of ENG switch
+        #     text_box.config(state="disabled")   
+        #     return
         else:
             h_emphasis_flag, f_emphasis_flag = False , False
             h_flag_list .append ([False,False])   
