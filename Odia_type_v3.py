@@ -188,10 +188,11 @@ def key(event):
             if od_uni == '':
                 print ('invalid char call')
                 return
+            print (od_uni)        
 
             if to_delete_last == True:
-                od_uni = main_text_stack [-1]
-                last_len= len(od_uni)
+                od_uni_1 = main_text_stack [-1]
+                last_len= len(od_uni_1)
                 text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
                 
             text_box.insert(tkinter.END, od_uni )
