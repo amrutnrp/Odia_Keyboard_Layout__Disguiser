@@ -9,7 +9,7 @@ from pyexcel_ods import get_data
 
 right_side_margin = 9
 
-sheet = get_data("backend_Config_mod.ods")
+sheet = get_data("backend_Config.ods")
 file_csv = open ('map_config.csv','w')
 
 # Cap_letters = sheet['map'][1][1:]
