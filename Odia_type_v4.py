@@ -40,9 +40,7 @@ def isNUmDOT (inp3):
     # return 48 <= inp3 <= 57 or inp3 == 46
 ascii_h = 104
 ascii_f = 102
-ascii_H = 70
-ascii_F = 72
-fh_l = [70,72,102,104]
+
 #=====================================================================================
 def key(event):
     kp = repr(event.char)   
@@ -87,7 +85,7 @@ def key(event):
         flagC = isCap (ascii_num)
         flagD = isSmall(ascii_num)
         flagF = (h_flag_list [-1][0] and ascii_num== ascii_f ) or (f_flag_list[-1][0] and ascii_num== ascii_h )
-        flagE = (ascii_num in fh_l )     
+        
         flagG = isNUmDOT (ascii_num)
         if space_emphasis_flag:
             flagH = ascii_num in space_emphasis_list
@@ -152,9 +150,6 @@ def key(event):
                 eng_char  = '-f-'
                 h_emphasis_flag, f_emphasis_flag = True, False
                 isIt_emphasized_now_h, isIt_emphasized_now_f = False, True
-            elif flagE:
-                text_box.config(state="disabled")  
-                return    
             elif flagC:
                 mode = 3
                 h_emphasis_flag , f_emphasis_flag = True, False 
@@ -187,8 +182,9 @@ def key(event):
                 od_uni = result_LUT [ mode *26 + class_index_num ] 
             if od_uni == '':
                 print ('invalid char call')
+                text_box.config(state="disabled")  
                 return
-            print (od_uni)        
+            # print (od_uni)        
 
             if to_delete_last == True:
                 od_uni_1 = main_text_stack [-1]
