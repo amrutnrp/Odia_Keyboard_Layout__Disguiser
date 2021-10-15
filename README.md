@@ -1,9 +1,10 @@
 # Odia_Keyboard_Layout
 New Layout and method of typing Odia characters (implemented in python)
 
-This is v5.0. the goal is to make it more friendly towards user.
+This is v5.0. the goal is to make it more friendly towards user. 
+I dumped all config to text so that, pyexcel-ods lib wont be required
 
-Install the following python libraries : pyperclip, pyexcel-ods
+Install python, pyperclip
 
 You can type Odia Characters in regular Keyboard in very fast manner. 
 Easy to switch from English to Odia Kayboard.

@@ -3,6 +3,10 @@
 Created on Fri Oct 15 10:36:50 2021
 
 @author: amrut
+
+
+Install pyexcel_ods library from pip to use this file
+pip install pyexcel-ods
 """
 
 from pyexcel_ods import get_data
