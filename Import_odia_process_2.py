@@ -7,7 +7,7 @@ Created on Sat Sep 18 12:16:26 2021
 from Static_data import  *
 from pyexcel_ods import get_data
 
-sheet = get_data("backend_Config.ods")
+sheet = get_data("backend_Config_mod.ods")
 
 # Cap_letters = sheet['map'][1][1:]
 # small_letters = sheet['map'][2][1:]
@@ -18,14 +18,16 @@ negative_symbol_map = sheet['map'][6][1:]
 
 
 text_map = sheet['opcodes'][1:]
-text_LUT = [None]*26
+text_LUT = []
+text_map2 = []
 
 for Rows in text_map:
     if len(Rows) < 8:
         continue
-    alpha = Rows [0]
-    LUTindex = Rows [right_side_margin]
-    text_LUT [ord (alpha[0]) - 97 ]  = int (LUTindex)
+    Rows2 = Rows [:8]
+    alpha = Rows2 [0][0]
+    text_LUT.append(   ord (alpha) -97  )
+    text_map2.append (Rows2 )
 
 Odia_chr = ['']
 Neg_chr = ['']
@@ -39,7 +41,6 @@ def get_eq_char (arr_in):
     for pointer in arr_in:
         string_sum = ''
         if  isinstance (pointer, int) :
-           
             if pointer> 0:
                 string_sum =  Odia_chr [pointer]
             else:
@@ -67,48 +68,48 @@ for item in text_map[2:]:
     b= get_eq_char(a)
     transpose_LUT .append (b)
 
-result_LUT = ['']*(30*8+2)
-def push_LUT(row_mode, col, dataIN):
-    global result_LUT
-    result_LUT [row_mode*30+col]= dataIN
-def get_LUT (row_mode, col):
-    if 0 < col <= threshold_class0_end and row_mode < class0_Column_length :
-        pass
-    elif threshold_class0_end < col <= threshold_class1_end and row_mode < class1_Column_length :
-        pass
-    elif  threshold_class1_end < col <= threshold_class2_end and row_mode < class2_Column_length:   
-        pass 
-    elif threshold_class2_end < col <= threshold_class3_end and row_mode < class3_Column_length:
-        pass
-    else:
-        print ('Invalid character call')
-        return '-err-'
-        raise KeyboardInterrupt 
+# result_LUT = ['']*(30*8+2)
+# def push_LUT(row_mode, col, dataIN):
+#     global result_LUT
+#     result_LUT [row_mode*30+col]= dataIN
+# def get_LUT (row_mode, col):
+#     if 0 < col <= threshold_class0_end and row_mode < class0_Column_length :
+#         pass
+#     elif threshold_class0_end < col <= threshold_class1_end and row_mode < class1_Column_length :
+#         pass
+#     elif  threshold_class1_end < col <= threshold_class2_end and row_mode < class2_Column_length:   
+#         pass 
+#     elif threshold_class2_end < col <= threshold_class3_end and row_mode < class3_Column_length:
+#         pass
+#     else:
+#         print ('Invalid character call')
+#         return '-err-'
+#         raise KeyboardInterrupt 
         
-    return result_LUT [row_mode*30+col]
+#     return result_LUT [row_mode*30+col]
 
-temp_control_op = ['']
+# temp_control_op = ['']
 
-for i in range(len(transpose_LUT)):
-    temp_control_op.append( transpose_LUT [i][right_side_margin -2])  #carrying it to shirt for 'control'
-    for j in range(len(transpose_LUT[i])):
-        # print (transpose_LUT[i][j])
-        push_LUT(j,i,transpose_LUT[i][j])
+# for i in range(len(transpose_LUT)):
+#     temp_control_op.append( transpose_LUT [i][right_side_margin -2])  #carrying it to shirt for 'control'
+#     for j in range(len(transpose_LUT[i])):
+#         # print (transpose_LUT[i][j])
+#         push_LUT(j,i,transpose_LUT[i][j])
         
-result_LUT = [''] + result_LUT        
-# adding a index to avoid -1 calc everytime
+# result_LUT = [''] + result_LUT        
+# # adding a index to avoid -1 calc everytime
 
-Dict_special_symbol_map = {}
-for i in range(len(temp_control_op )):
-    if not temp_control_op [i] == '':
-        Dict_special_symbol_map [str ( control_inp_types [text_LUT.index(i)] )] = temp_control_op [i] 
+# Dict_special_symbol_map = {}
+# for i in range(len(temp_control_op )):
+#     if not temp_control_op [i] == '':
+#         Dict_special_symbol_map [str ( control_inp_types [text_LUT.index(i)] )] = temp_control_op [i] 
 
-special_symbols = list(Dict_special_symbol_map.keys())  # ouan and iyan for control keys
+# special_symbols = list(Dict_special_symbol_map.keys())  # ouan and iyan for control keys
 
-Number_map = {}
-temp_control_op = get_eq_char( num_and_symbols_preMap )
-number_result_ord = []
-for i in range (len(num_and_symbols)):
-    Number_map[str ( num_and_symbols [i] ) ] = temp_control_op [i]
-    number_result_ord.append ( ord ( str ( num_and_symbols [i] ) )         )
-space_emphasis_list = list(space_emphasis_map.keys())
+# Number_map = {}
+# temp_control_op = get_eq_char( num_and_symbols_preMap )
+# number_result_ord = []
+# for i in range (len(num_and_symbols)):
+#     Number_map[str ( num_and_symbols [i] ) ] = temp_control_op [i]
+#     number_result_ord.append ( ord ( str ( num_and_symbols [i] ) )         )
+# space_emphasis_list = list(space_emphasis_map.keys())
