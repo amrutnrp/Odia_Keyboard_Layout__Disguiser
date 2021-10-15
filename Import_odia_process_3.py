@@ -4,9 +4,40 @@ Created on Sat Sep 18 12:16:26 2021
 
 @author: amrut
 """
-from Static_data import  *
+
 # from config_2_text import i
 file_csv = open ('map_config.csv','r')
+
+
+control_inp_types = [
+"'\\x01'",     #A
+"'\\x02'",     #B 
+"'\\x03'",     #C 
+"'\\x04'",     #D 
+"'\\x05'",     #E 
+"'\\x06'",     #F 
+"'\\x07'",     #G 
+"'\\x08'",     #H
+"'\\t'"  ,     #I
+"'\\n'"  ,     #J  
+"'\\x0b'",     #K  
+"'\\x0c'",     #L  
+"'\\r'" ,       #M
+"'\\x0e'",     #N 
+"'\\x0f'",     #O 
+"'\\x10'",     #P 
+"'\\x11'",     #Q 
+"'\\x12'",     #R 
+"'\\x13'",     #S  
+"'\\x14'",     #T 
+"'\\x15'",     #U
+"'\\x16'",     #V 
+"'\\x17'",     #W
+"'\\x18'",     #X 
+"'\\x19'",     #Y
+"'\\x1a'"     #Z 
+    ]
+
 
 result_LUT = ['']*(26*8+2)
 def get_exact_char (arr_in):
