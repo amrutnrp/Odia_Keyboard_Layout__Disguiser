@@ -34,26 +34,3 @@ control_inp_types = [
 "'\\x1a'"     #Z 
     ]
 
-
-right_side_margin = 8
-threshold_class0_end = 5
-threshold_class1_end = 14
-threshold_class2_end = 20
-threshold_class3_end = 24
-
-class0_Column_length = 3
-class1_Column_length = 4
-class2_Column_length = 6
-class3_Column_length = 6
-
-space_emphasis_map = {
-    104:(0,'x'),
-    97:(1,'a'),
-##    65:(2,'a'),
-    101:(3, 'e'),
-    117:(3,'u'),
-    105:(3,'i'),
-    111:(3,'o'),
-    102:(1,'q')
-    
-    }
