@@ -7,6 +7,7 @@ Created on Sun Sep 26 17:41:41 2021
 import pyperclip
 import tkinter
 root = tkinter.Tk()
+root2 = tkinter.Tk()
 from Import_odia_process_2  import  *
 
 print('Programm starting...')
@@ -65,6 +66,7 @@ def key(event):
     elif Disable_Odia_FSM == 1 :
         Disable_Odia_FSM = 0
         if kp == "'-'":
+            text_box2.delete ('1.0', tkinter.END)
             text_box.delete('1.0', tkinter.END)
             Disable_Odia_typing= True
             kp = "' '"
@@ -73,6 +75,7 @@ def key(event):
 
     if len (kp) == 3:
         ascii_num = ord (kp[1])
+        text_box2.insert (tkinter.END, kp[1])  
         
         
         flagA = (ascii_num== ascii_h and h_emphasis_flag ) # h emphasis 
@@ -231,6 +234,7 @@ def key(event):
     #     last_od_ty
         space_emphasis_flag= True
         if kp == "'\\x08'" : # Backspace
+            text_box2.insert (tkinter.END, '<Bksp>')
             od_uni = main_text_stack.pop()   
             h_emphasis_flag_local = h_flag_list.pop ()
             f_emphasis_flag_local = f_flag_list.pop ()
@@ -262,6 +266,7 @@ def key(event):
             text_box.config(state="disabled")   
             return
         elif kp in special_symbols:
+            text_box2.insert (tkinter.END, '<'+kp+'>')
             od_uni = Dict_special_symbol_map[kp] 
             text_box.insert(tkinter.END, od_uni )
             
@@ -279,10 +284,12 @@ def key(event):
             f_flag_list .append ([False,False])  
             
             if kp == "'\\r'":  #Enter
+                text_box2.insert (tkinter.END, chr(9094) )
                 text_box.insert(tkinter.END, '\n')     
                 main_text_stack.append('\n')
                 space_emphasis_flag= True
             elif kp == "'\\t'": #"'\\t'" or kp == "']'":  # halant for tab 
+                text_box2.insert (tkinter.END, '\\t' )
                 text_box.insert(tkinter.END, chr (2893) )          
                 main_text_stack.append(  chr (2893) )
             else:
@@ -313,10 +320,14 @@ def callback(event):
     text_box.focus_set()
     #print ("clicked at", event.x, event.y)
 text_box = tkinter.Text(root, width =40, height = 20 ,  font=("Helvetica", 16))
+text_box2 = tkinter.Text(root2, width =40, height = 20 ,  font=("Helvetica", 16))
 #text_box.insert("1.0", sample_text)
 text_box.bind("<Key>", key)
 text_box.bind("<Button-1>", callback)
 text_box.config(state="disabled")
 text_box.pack()
+
+#text_box2.pack()
+
 root.mainloop()
 
