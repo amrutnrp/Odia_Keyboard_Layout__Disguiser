@@ -8,7 +8,7 @@ import pyperclip
 import tkinter
 root = tkinter.Tk()
 root2 = tkinter.Tk()
-from Import_odia_process_2  import  *
+from Import_odia_process_3  import  *
 
 print('Programm starting...')
 
@@ -95,10 +95,12 @@ def key(event):
         
         if flagA or flagB or flagC or flagD and not (Disable_Odia_typing): 
             to_delete_last = False
+            override_flag = False
 
             if flagH:
-                mode, new_ascii = space_emphasis_map [ascii_num ]
-                ascii_num = ord (new_ascii )
+                override_flag  =True
+                od_uni = space_emphasis_map [ascii_num ]
+                #ascii_num = ord (new_ascii )
                 isIt_emphasized_now_h, isIt_emphasized_now_f = False, False
                 h_emphasis_flag, f_emphasis_flag = False, False
                 eng_char = kp[1]
@@ -170,29 +172,24 @@ def key(event):
             class_index_num = (ascii_num - 65) if flagC else (ascii_num - 97)                
 
             # print (mode, class_index_num)            
-                       
-            # print (mode, text_LUT [class_index_num] )
-            col = text_LUT [class_index_num]
-            if 0 < col <= threshold_class0_end and mode < class0_Column_length :
-                pass
-            elif threshold_class0_end < col <= threshold_class1_end and mode < class1_Column_length :
-                pass
-            elif  threshold_class1_end < col <= threshold_class2_end and mode < class2_Column_length:   
-                pass 
-            elif threshold_class2_end < col <= threshold_class3_end and mode < class3_Column_length:
+                      
+                
+
+                
+            
+            if override_flag :
                 pass
             else:
-                print ('Invalid character call')
-                text_box.config(state="disabled") 
+                od_uni = result_LUT [ mode *26 + class_index_num ] 
+            if od_uni == '':
+                print ('invalid char call')
                 return
-                
+
             if to_delete_last == True:
                 od_uni = main_text_stack [-1]
                 last_len= len(od_uni)
                 text_box.delete('end-'+str(last_len+1)+'c', 'end-1c')
                 
-            
-            od_uni = get_LUT(mode, text_LUT [class_index_num] )
             text_box.insert(tkinter.END, od_uni )
             main_text_stack.append( od_uni ) 
             h_flag_list .append ([isIt_emphasized_now_h, h_emphasis_flag])

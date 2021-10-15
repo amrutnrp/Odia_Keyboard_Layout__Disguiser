@@ -31,6 +31,7 @@ space_emphasis_map= {}
 Dict_special_symbol_map= {}
 Number_map = {}
 number_result_ord = []
+special_symbols = []
 For_control = [''] * 26
 mode = -1
 counter = 0
@@ -45,20 +46,24 @@ for line in file_csv:
         
         b=  get_exact_char (a [1:])
         
-        push_LUT (counter, 0, b[0])
-        push_LUT (counter, 1, b[1])
-        push_LUT (counter, 2, b[2])
-        push_LUT (counter, 3, b[3])
-        push_LUT (counter, 4, b[4])
+        push_LUT (0 ,counter, b[0])
+        push_LUT (1 ,counter, b[1])
+        push_LUT (2 ,counter, b[2])
+        push_LUT (3 ,counter, b[3])
+        push_LUT (4 ,counter, b[4])
+        push_LUT (5 ,counter, b[5])
+        counter = counter +1
         
         if b[6] == '':
             pass
         else:
             Dict_special_symbol_map [ control_inp_types[  ord (line[0]) -97] ] = b[6]
+            special_symbols.append ( control_inp_types[  ord (line[0]) -97] )
         if b [7] == "":
             pass
         else:
             space_emphasis_map [ ord (line[0]) ] = b[7]
+            
     elif mode ==1:  #numbers
         b=  get_exact_char ( [ a [1] ])
         Number_map [ a[0]] = b[0]
