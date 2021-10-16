@@ -83,6 +83,8 @@ for line in file_csv:
         push_LUT (3 ,counter, b[3])
         push_LUT (4 ,counter, b[4])
         push_LUT (5 ,counter, b[5])
+        push_LUT (6 ,counter, b[6])
+        push_LUT (7 ,counter, b[7])
         counter = counter +1
         
         if b[6] == '':
