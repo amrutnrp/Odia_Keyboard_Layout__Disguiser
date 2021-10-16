@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+
+<title>FastType-Odia</title>
+<meta name="author1" content="Amrut" />
+<meta name ="description" content="jQuery IME Off-line" />
+<link href="../css/jquery.ime.css" rel="stylesheet" />
+<script src="../src/jquery-3.6.0.min.js" ></script>
+<script src="../justLib/rangyinputs-jquery.js"></script>
+<script src="../src/jquery.ime.js"></script>
+<script src="../src/jquery.ime.selector.js"></script>
+<script src="../src/jquery.ime.preferences.js"></script>
+<script src="../src/jquery.ime.inputmethods.js"></script>
+<!-- Demo -->
+<link href="demo.css" rel="stylesheet" />
+<script>
+	$( document ).ready( function () {
+		$( 'input, textarea, [contenteditable]' ).ime();
+	} );
+</script>
+</head>
+
+<body>
+	<div>
+		<header>
+			<h5 align="left"> <a href="https://github.com/amrutnrp/FastType-Odia" target="_blank" ><img border="0" src="FasttypeLogo.png" title="Link to github" width="130" height="50"></a></h5>
+		</header>
+		<p align='right' style='margin-top:-40px' > <a href="help.html" target="_blank" title="କେମିତି ଟାଇପ କରିବେ ">Help</a> </p> 
+		<div>
+			<textarea name="message" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;">Happy Typing :D.</textarea>
+		</div>
+		<div id="console"></div>
+		<footer>
+			<p font='bold' align='center'><p>
+			<p align='center'><a href="Resources.html" target="_blank" title="Related projects, ideas and other developments in this space">-- Resources --</a> </p>
+			
+		</footer>
+	</div>
+</body>
+</html>
